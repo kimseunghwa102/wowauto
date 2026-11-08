@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WOW Automation</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="WOW Automation — RPA 업무 자동화 구축·컨설팅. 병원·제약·제조·세무·협회 13개 프로젝트, 자동화 업무 1건 300만원부터.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Black+Han+Sans&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: industrial signage — full-width hazard bands, a bot run-log as the hero object, ledger-style reference list */
+:root{
+  --ink:#0c0b08;        /* page */
+  --plate:#16140f;      /* raised band */
+  --rule:#2c2920;       /* hairlines */
+  --paper:#f2ede0;      /* main text */
+  --dim:#9a937f;        /* secondary text */
+  --signal:#f5c400;     /* safety yellow */
+  --ok:#5fd38d;         /* bot success */
+  --display-en:'Bebas Neue',Impact,'Arial Narrow',sans-serif;
+  --display-ko:'Black Han Sans','Noto Sans KR',sans-serif;
+  --body:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--body);font-size:16px;line-height:1.7;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--ink)}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (min-width:760px){.wrap{padding-left:max(40px,env(safe-area-inset-left,0px));padding-right:max(40px,env(safe-area-inset-right,0px))}}
+:focus-visible{outline:2px solid var(--signal);outline-offset:3px}
+
+/* NAV */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(12,11,8,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand-mark{background:var(--signal);color:var(--ink);font-family:var(--display-en);font-size:20px;letter-spacing:1px;padding:4px 8px 1px;line-height:1}
+.brand-name{font-family:var(--display-en);font-size:22px;letter-spacing:3px;line-height:1}
+.brand-name small{display:block;font-family:var(--mono);font-size:9px;letter-spacing:2.5px;color:var(--dim)}
+.nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0;align-items:center}
+.nav ul a{text-decoration:none;font-size:14px;color:var(--dim);font-weight:500}
+.nav ul a:hover{color:var(--paper)}
+.nav .cta{background:var(--signal);color:var(--ink);padding:9px 18px;font-weight:700}
+.nav .cta:hover{color:var(--ink);background:#ffd83a}
+@media (max-width:860px){.nav ul li:not(.keep){display:none}}
+
+/* HERO */
+.hero{position:relative;border-bottom:1px solid var(--rule);background:
+  linear-gradient(var(--ink),var(--ink)) padding-box,
+  repeating-linear-gradient(90deg,rgba(245,196,0,.035) 0 1px,transparent 1px 64px)}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;padding-block:72px 64px}
+@media (max-width:960px){.hero .wrap{grid-template-columns:1fr;gap:40px;padding-block:48px}}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:2px;color:var(--signal);text-transform:uppercase;display:flex;align-items:center;gap:10px;margin:0 0 20px}
+.eyebrow::before{content:"";width:8px;height:8px;background:var(--ok);border-radius:50%;box-shadow:0 0 0 4px rgba(95,211,141,.15)}
+h1{font-family:var(--display-ko);font-weight:400;font-size:clamp(40px,6.4vw,78px);line-height:1.08;letter-spacing:-1px;margin:0 0 24px;text-wrap:balance}
+h1 em{font-style:normal;color:var(--signal)}
+.lede{color:var(--dim);font-size:17px;max-width:34em;margin:0 0 32px}
+.lede strong{color:var(--paper)}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:15px 26px;font-weight:700;font-size:15px;text-decoration:none;border:1px solid var(--signal);cursor:pointer;font-family:var(--body);transition:background .2s,color .2s}
+.btn-fill{background:var(--signal);color:var(--ink)}
+.btn-fill:hover{background:#ffd83a}
+.btn-line{background:transparent;color:var(--signal)}
+.btn-line:hover{background:rgba(245,196,0,.1)}
+.stats{display:flex;flex-wrap:wrap;gap:36px;margin-top:44px;padding-top:28px;border-top:1px solid var(--rule)}
+.stat b{display:block;font-family:var(--display-en);font-weight:400;font-size:46px;line-height:1;color:var(--signal);font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--dim)}
+
+/* Run log — the hero object */
+.runlog{background:#090806;border:1px solid var(--rule);font-family:var(--mono);font-size:12.5px;line-height:1.85;min-width:0;box-shadow:12px 12px 0 rgba(245,196,0,.12)}
+.runlog-top{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-bottom:1px solid var(--rule);color:var(--dim);font-size:11px;letter-spacing:1px}
+.runlog-top b{color:var(--ok);font-weight:600}
+.runlog ol{list-style:none;margin:0;padding:14px 16px 16px;overflow-x:auto}
+.runlog li{display:grid;grid-template-columns:62px 1fr auto;gap:12px;white-space:nowrap}
+.runlog .t{color:#5d5848}
+.runlog .s{color:var(--ok)}
+.runlog .w{color:var(--signal)}
+.runlog li.total{margin-top:10px;padding-top:10px;border-top:1px dashed var(--rule);color:var(--paper)}
+.runlog-foot{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--rule)}
+.runlog-foot div{padding:14px 16px}
+.runlog-foot div+div{border-left:1px solid var(--rule)}
+.runlog-foot small{display:block;color:var(--dim);font-size:10.5px;letter-spacing:1px}
+.runlog-foot strong{font-family:var(--display-en);font-weight:400;font-size:30px;color:var(--paper);line-height:1.1}
+.runlog-foot strong.y{color:var(--signal)}
+.blink{animation:blink 1.1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* Hazard ticker */
+.hazard{height:12px;background:repeating-linear-gradient(-45deg,var(--signal) 0 14px,var(--ink) 14px 28px)}
+.ticker{background:var(--signal);color:var(--ink);overflow:hidden;white-space:nowrap;font-family:var(--display-en);font-size:22px;letter-spacing:2px;padding-block:10px 6px}
+.ticker div{display:inline-block;animation:slide 40s linear infinite}
+.ticker span{padding:0 22px}
+.ticker span::after{content:"■";font-size:10px;vertical-align:middle;margin-left:44px}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* Sections */
+section{border-bottom:1px solid var(--rule)}
+section>.wrap{padding-block:88px}
+@media (max-width:760px){section>.wrap{padding-block:60px}}
+.band{background:var(--plate)}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:44px}
+.label{font-family:var(--mono);font-size:12px;letter-spacing:2px;color:var(--signal);text-transform:uppercase;margin:0 0 10px}
+h2{font-family:var(--display-ko);font-weight:400;font-size:clamp(32px,4.4vw,52px);line-height:1.15;margin:0;text-wrap:balance}
+.sec-head p{color:var(--dim);max-width:30em;margin:0}
+
+/* Services */
+.svc{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--rule);border-left:1px solid var(--rule)}
+@media (max-width:900px){.svc{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.svc{grid-template-columns:1fr}}
+.svc article{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:32px 28px;transition:background .25s}
+.svc article:hover{background:rgba(245,196,0,.05)}
+.svc code{font-family:var(--mono);font-size:11px;color:var(--ink);background:var(--signal);padding:3px 7px;letter-spacing:1px}
+.svc h3{font-size:20px;margin:18px 0 8px}
+.svc p{color:var(--dim);font-size:14.5px;margin:0}
+
+/* Why */
+.why{display:grid;grid-template-columns:repeat(5,1fr);gap:0}
+@media (max-width:980px){.why{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.why{grid-template-columns:1fr}}
+.why div{padding:24px 22px;border-left:3px solid var(--signal);background:rgba(255,255,255,.015)}
+.why div+div{border-left-color:var(--rule)}
+.why div:hover{border-left-color:var(--signal)}
+.why h3{font-size:17px;margin:0 0 6px}
+.why p{color:var(--dim);font-size:14px;margin:0}
+@media (max-width:980px){.why{gap:12px}.why div+div{border-left-color:var(--signal)}}
+
+/* References ledger */
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+.filters button{font-family:var(--mono);font-size:12px;background:transparent;color:var(--dim);border:1px solid var(--rule);padding:7px 12px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--signal);color:var(--ink);border-color:var(--signal)}
+.ledger{border-top:2px solid var(--signal)}
+.row{display:grid;grid-template-columns:170px 1fr 190px 100px;gap:20px;align-items:center;padding:18px 4px;border-bottom:1px solid var(--rule)}
+.row:hover{background:rgba(245,196,0,.035)}
+.row.head{font-family:var(--mono);font-size:11px;letter-spacing:1.5px;color:var(--dim);text-transform:uppercase;padding-block:12px}
+.row.head:hover{background:none}
+.row .per{font-family:var(--mono);font-size:13px;color:var(--dim);font-variant-numeric:tabular-nums}
+.row .nm{font-weight:700;min-width:0}
+.row .cl{color:var(--dim);font-size:14px}
+.chip{justify-self:start;font-family:var(--mono);font-size:11px;padding:3px 9px;border:1px solid var(--signal);color:var(--signal)}
+.chip.c{border-color:#8fb4ff;color:#8fb4ff}
+.chip.f{border-color:#d29bff;color:#d29bff}
+.chip.p{border-color:var(--ok);color:var(--ok)}
+@media (max-width:760px){
+  .row.head{display:none}
+  .row{grid-template-columns:1fr auto;gap:4px 12px;padding:16px 2px}
+  .row .nm{grid-column:1/2;grid-row:2}
+  .row .per{grid-column:1/2;grid-row:1}
+  .row .cl{grid-column:1/3;grid-row:3}
+  .row .chip{grid-column:2/3;grid-row:1/3;align-self:start;justify-self:end}
+}
+
+/* ROI */
+.roi{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--rule)}
+@media (max-width:860px){.roi{grid-template-columns:1fr}}
+.roi-in{padding:32px;display:grid;gap:22px}
+.field label{display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px}
+.field label output{font-family:var(--mono);color:var(--signal);font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;accent-color:var(--signal)}
+.roi-out{background:var(--signal);color:var(--ink);padding:32px;display:grid;gap:18px;align-content:start}
+.roi-out .big{font-family:var(--display-en);font-size:clamp(54px,8vw,84px);line-height:.95;font-variant-numeric:tabular-nums}
+.roi-out .k{font-size:13px;font-weight:700;letter-spacing:.5px}
+.roi-out .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;border-top:2px solid var(--ink);padding-top:16px}
+.roi-out .grid b{display:block;font-family:var(--display-en);font-size:34px;font-weight:400;line-height:1;font-variant-numeric:tabular-nums}
+.roi-out .note{font-size:12px;opacity:.75;margin:0}
+
+/* Process */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);counter-reset:s}
+@media (max-width:860px){.steps{grid-template-columns:1fr 1fr;row-gap:28px}}
+@media (max-width:480px){.steps{grid-template-columns:1fr}}
+.step{padding-right:24px;position:relative}
+.step .n{font-family:var(--display-en);font-size:64px;line-height:1;color:var(--signal)}
+.step .bar{height:3px;background:var(--rule);margin:10px 0 18px;position:relative}
+.step .bar::after{content:"";position:absolute;inset:0 auto 0 0;width:40%;background:var(--signal)}
+.step h3{margin:0 0 6px;font-size:18px}
+.step p{margin:0;color:var(--dim);font-size:14.5px}
+.step small{display:block;margin-top:10px;font-family:var(--mono);font-size:11.5px;color:var(--signal)}
+
+/* Pricing */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media (max-width:900px){.plans{grid-template-columns:1fr}}
+.plan{border:1px solid var(--rule);padding:30px 28px;display:flex;flex-direction:column;gap:14px;background:var(--ink)}
+.plan.hot{border-color:var(--signal);box-shadow:8px 8px 0 rgba(245,196,0,.18)}
+.plan .tier{font-family:var(--mono);font-size:12px;letter-spacing:2px;color:var(--dim)}
+.plan.hot .tier{color:var(--signal)}
+.plan .price{font-family:var(--display-en);font-size:58px;line-height:1}
+.plan .price small{font-family:var(--body);font-size:16px;color:var(--dim);margin-left:4px}
+.plan ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;color:var(--dim);font-size:14.5px}
+.plan li::before{content:"✓";color:var(--signal);margin-right:8px;font-weight:700}
+.plan .btn{margin-top:auto;justify-content:center}
+
+/* CEO */
+.ceo{display:grid;grid-template-columns:300px 1fr;gap:56px;align-items:start}
+@media (max-width:860px){.ceo{grid-template-columns:1fr;gap:32px}}
+.badge{border:1px solid var(--rule);background:var(--ink)}
+.badge .top{background:var(--signal);color:var(--ink);font-family:var(--mono);font-size:11px;letter-spacing:2px;padding:8px 14px;display:flex;justify-content:space-between}
+.badge .face{aspect-ratio:1;max-width:100%;display:grid;place-items:center;font-family:var(--display-ko);font-size:88px;color:var(--signal);background:repeating-linear-gradient(0deg,transparent 0 23px,var(--rule) 23px 24px)}
+.badge .who{padding:16px 14px;border-top:1px solid var(--rule)}
+.badge .who b{display:block;font-size:20px}
+.badge .who span{color:var(--dim);font-size:13px;font-family:var(--mono)}
+.ceo-body>p{color:var(--dim);font-size:16.5px;max-width:38em;margin:16px 0 32px}
+.ceo-body>p strong{color:var(--signal)}
+.tl{list-style:none;margin:0 0 28px;padding:0;border-left:1px solid var(--rule)}
+.tl li{padding:0 0 18px 22px;position:relative}
+.tl li::before{content:"";position:absolute;left:-5px;top:9px;width:9px;height:9px;background:var(--signal)}
+.tl small{font-family:var(--mono);font-size:12px;color:var(--dim);display:block}
+.langs{display:flex;flex-wrap:wrap;gap:8px}
+.langs span{border:1px solid var(--rule);padding:6px 12px;font-size:13.5px}
+
+/* FAQ */
+.faq{display:grid;gap:0;border-top:1px solid var(--rule)}
+.faq details{border-bottom:1px solid var(--rule)}
+.faq summary{cursor:pointer;list-style:none;padding:22px 4px;font-weight:700;font-size:17px;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--mono);color:var(--signal);font-size:22px;line-height:1}
+.faq details[open] summary::after{content:"−"}
+.faq details p{margin:0 0 22px;color:var(--dim);max-width:46em;padding-inline:4px}
+
+/* Contact */
+.contact{display:grid;grid-template-columns:1fr 1.1fr;gap:56px}
+@media (max-width:860px){.contact{grid-template-columns:1fr;gap:36px}}
+.contact-info>p{color:var(--dim);margin:16px 0 28px}
+.mailbox{border:1px solid var(--signal);padding:18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.mailbox small{display:block;font-family:var(--mono);font-size:11px;color:var(--signal);letter-spacing:1.5px}
+.mailbox span{font-family:var(--mono);font-size:15px;word-break:break-all;user-select:all}
+.copy{background:var(--signal);color:var(--ink);border:0;font-weight:700;padding:9px 14px;cursor:pointer;font-family:var(--body)}
+.facts{margin-top:18px;display:grid;gap:10px;color:var(--dim);font-size:14.5px}
+.facts b{color:var(--paper);font-weight:500;margin-right:8px}
+form{display:grid;gap:16px;min-width:0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:520px){.two{grid-template-columns:1fr}}
+form label{display:block;font-family:var(--mono);font-size:11.5px;letter-spacing:1.5px;color:var(--signal);margin-bottom:6px}
+input[type=text],input[type=email],select,textarea{width:100%;background:var(--plate);border:1px solid var(--rule);color:var(--paper);padding:13px 14px;font:inherit;font-size:15px;border-radius:0}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--signal)}
+textarea{min-height:130px;resize:vertical}
+.status{font-size:14px;padding:14px;border:1px solid var(--rule);margin:0}
+.status.ok{border-color:var(--ok);color:var(--ok)}
+.status.fb{border-color:var(--signal);color:var(--paper)}
+.status pre{white-space:pre-wrap;font-family:var(--mono);font-size:12.5px;color:var(--dim);margin:10px 0}
+
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-block:36px;color:var(--dim);font-size:13px}
+footer .f-brand{font-family:var(--display-en);font-size:28px;letter-spacing:3px;color:var(--paper);line-height:1}
+footer .mono{font-family:var(--mono);font-size:11.5px;letter-spacing:1.5px;text-align:right}
+footer .mono b{color:var(--signal);font-weight:600}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="주 메뉴">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="brand-mark">WOW</span><span class="brand-name">WOW<small>AUTOMATION CO.</small></span></a>
+    <ul>
+      <li><a href="#services">서비스</a></li>
+      <li><a href="#references">레퍼런스</a></li>
+      <li><a href="#roi">절감 계산기</a></li>
+      <li><a href="#pricing">비용</a></li>
+      <li><a href="#ceo">대표 소개</a></li>
+      <li class="keep"><a class="cta" href="#contact">무료 상담</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">RPA 구축 · 컨설팅 · 교육</p>
+      <h1>사람이 하던 반복 업무,<br><em>봇이 대신</em> 끝냅니다</h1>
+      <p class="lede">병원·제약·제조·세무법인·협회에서 검증된 RPA 자동화. 업무 분석부터 봇 개발, 운영 이관까지 한 팀이 끝까지 책임집니다. <strong>자동화 업무 1건 300만원부터.</strong></p>
+      <div class="btns">
+        <a class="btn btn-fill" href="#contact">30분 무료 상담 신청 →</a>
+        <a class="btn btn-line" href="#roi">우리 회사 절감액 계산</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>13</b><span>완료 프로젝트</span></div>
+        <div class="stat"><b>4+</b><span>년 현장 경험</span></div>
+        <div class="stat"><b>6</b><span>개 업종 구축</span></div>
+      </div>
+    </div>
+
+    <figure class="runlog" aria-label="RPA 봇 실행 로그 예시" style="margin:0">
+      <div class="runlog-top"><span>bot://daily-settlement.job</span><b>● RUNNING</b></div>
+      <ol>
+        <li><span class="t">08:00:01</span><span>그룹웨어 로그인</span><span class="s">OK</span></li>
+        <li><span class="t">08:00:09</span><span>ERP 전일 매출 조회 (412건)</span><span class="s">OK</span></li>
+        <li><span class="t">08:00:47</span><span>엑셀 정산 양식 작성</span><span class="s">OK</span></li>
+        <li><span class="t">08:01:12</span><span>예외 3건 담당자 알림</span><span class="w">WARN</span></li>
+        <li><span class="t">08:01:20</span><span>보고서 PDF 메일 발송</span><span class="s">OK</span></li>
+        <li class="total"><span class="t">08:01:21</span><span>작업 완료<span class="blink">_</span></span><span class="s">DONE</span></li>
+      </ol>
+      <div class="runlog-foot">
+        <div><small>사람이 할 때</small><strong>2시간 10분</strong></div>
+        <div><small>봇이 할 때</small><strong class="y">1분 20초</strong></div>
+      </div>
+    </figure>
+  </div>
+</header>
+
+<div class="hazard" aria-hidden="true"></div>
+<div class="ticker" aria-hidden="true"><div>
+  <span>충남대학교병원</span><span>계명대학교동산의료원</span><span>MITUTOYO KOREA</span><span>EDIYA COFFEE</span><span>KSA 한국표준협회</span><span>셀트리온제약</span><span>경동나비엔</span><span>환인제약</span><span>세무법인신세계</span><span>DIC</span>
+  <span>충남대학교병원</span><span>계명대학교동산의료원</span><span>MITUTOYO KOREA</span><span>EDIYA COFFEE</span><span>KSA 한국표준협회</span><span>셀트리온제약</span><span>경동나비엔</span><span>환인제약</span><span>세무법인신세계</span><span>DIC</span>
+</div></div>
+
+<section class="band" id="services">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="label">Services</p><h2>도입 검토부터 운영까지</h2></div>
+      <p>처음 RPA를 들여다보는 회사도, 이미 봇이 돌아가는 회사도 필요한 단계만 골라 맡기시면 됩니다.</p>
+    </div>
+    <div class="svc">
+      <article><code>BUILD</code><h3>RPA 봇 구축</h3><p>UiPath·Power Automate 등 주요 플랫폼으로 데이터 입력, 문서 처리, 시스템 간 연동 같은 반복 업무를 자동화합니다.</p></article>
+      <article><code>CONSULT</code><h3>도입 컨설팅</h3><p>현업 인터뷰로 자동화 후보를 고르고, ROI를 계산해 어떤 업무부터 시작할지 로드맵을 그립니다.</p></article>
+      <article><code>FRAMEWORK</code><h3>프레임워크 설계</h3><p>재사용 컴포넌트와 개발 표준을 만들어, 봇이 늘어나도 유지보수가 무너지지 않는 구조를 잡습니다.</p></article>
+      <article><code>POC</code><h3>PoC · 파일럿</h3><p>본 계약 전에 업무 1~2건을 먼저 자동화해 실제 절감 효과를 숫자로 확인합니다.</p></article>
+      <article><code>TRAIN</code><h3>사내 교육</h3><p>현업 담당자와 내부 개발자를 위한 실습 중심 교육. 셀트리온제약에서 100명 이상을 교육했습니다.</p></article>
+      <article><code>OPS</code><h3>운영 · 유지보수</h3><p>화면 변경이나 예외 발생으로 봇이 멈추면 빠르게 원인을 찾고 수정합니다.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="wrap">
+    <div class="sec-head"><div><p class="label">Why WOW</p><h2>대형 SI 대비 1/3 비용, 결과는 같게</h2></div></div>
+    <div class="why">
+      <div><h3>업계 최저가</h3><p>자동화 업무 1건 300만원. 견적이 단순하고 숨은 비용이 없습니다.</p></div>
+      <div><h3>6개 업종 경험</h3><p>병원, 제약, 제조, 세무법인, 협회, F&amp;B 업무를 이미 다뤄봤습니다.</p></div>
+      <div><h3>풀패키지</h3><p>분석 → 개발 → 테스트 → 납품 → 운영 지원까지 한 번에.</p></div>
+      <div><h3>빠른 납기</h3><p>소규모 자동화는 보통 2~4주 안에 운영에 들어갑니다.</p></div>
+      <div><h3>주 단위 공유</h3><p>진행 상황을 매주 보고하고, 납품 후 이슈도 바로 대응합니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="references">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="label">References · 2022–2026</p><h2>레퍼런스 13건</h2></div>
+      <div class="filters" role="group" aria-label="구분 필터">
+        <button type="button" data-f="all" aria-pressed="true">전체 13</button>
+        <button type="button" data-f="구축" aria-pressed="false">구축</button>
+        <button type="button" data-f="컨설팅" aria-pressed="false">컨설팅</button>
+        <button type="button" data-f="프레임워크" aria-pressed="false">프레임워크</button>
+        <button type="button" data-f="PoC" aria-pressed="false">PoC</button>
+      </div>
+    </div>
+    <div class="ledger" id="ledger">
+      <div class="row head"><span>사업기간</span><span>사업명</span><span>발주처</span><span>구분</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="roi">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="label">ROI Calculator</p><h2>우리 회사는 얼마나 아낄까</h2></div>
+      <p>반복 업무 하나를 기준으로 입력해 보세요. 300만원 투자가 몇 달 만에 회수되는지 바로 나옵니다.</p>
+    </div>
+    <div class="roi">
+      <div class="roi-in">
+        <div class="field"><label for="r-min">하루 반복 업무 시간 <output id="o-min">90분</output></label><input id="r-min" type="range" min="10" max="480" step="10" value="90"></div>
+        <div class="field"><label for="r-ppl">이 업무를 하는 인원 <output id="o-ppl">2명</output></label><input id="r-ppl" type="range" min="1" max="30" step="1" value="2"></div>
+        <div class="field"><label for="r-wage">1인 시간당 인건비 <output id="o-wage">25,000원</output></label><input id="r-wage" type="range" min="10000" max="80000" step="1000" value="25000"></div>
+        <div class="field"><label for="r-rate">자동화 비율 <output id="o-rate">80%</output></label><input id="r-rate" type="range" min="30" max="100" step="5" value="80"></div>
+      </div>
+      <div class="roi-out" aria-live="polite">
+        <div><div class="k">연간 절감 인건비</div><div class="big" id="o-year">0원</div></div>
+        <div class="grid">
+          <div><span class="k">월 절감 시간</span><b id="o-hours">0h</b></div>
+          <div><span class="k">300만원 회수까지</span><b id="o-pay">0개월</b></div>
+        </div>
+        <p class="note">월 21 근무일 기준 추정치입니다. 실제 효과는 무료 상담에서 업무를 보고 산정해 드립니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="process">
+  <div class="wrap">
+    <div class="sec-head"><div><p class="label">Process</p><h2>이렇게 진행합니다</h2></div></div>
+    <div class="steps">
+      <div class="step"><div class="n">01</div><div class="bar"></div><h3>현업 분석</h3><p>업무 흐름을 보고 자동화 대상을 고르고, 효과를 미리 계산합니다.</p><small>1주</small></div>
+      <div class="step"><div class="n">02</div><div class="bar"></div><h3>설계 · 개발</h3><p>프로세스를 설계하고 봇을 만든 뒤 단위 테스트를 돌립니다.</p><small>1–2주</small></div>
+      <div class="step"><div class="n">03</div><div class="bar"></div><h3>테스트 · 검수</h3><p>실제 데이터로 시나리오 테스트, 예외 처리, 현업 UAT를 진행합니다.</p><small>3–5일</small></div>
+      <div class="step"><div class="n">04</div><div class="bar"></div><h3>운영 · 이관</h3><p>배포 후 운영 가이드를 드리고 담당자 교육까지 마칩니다.</p><small>2–3일</small></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="label">Pricing</p><h2>견적은 단순하게</h2></div>
+      <p>부가세 별도. 정확한 범위는 30분 무료 상담 후 확정합니다.</p>
+    </div>
+    <div class="plans">
+      <div class="plan"><span class="tier">BASIC</span><div class="price">300<small>만원</small></div><p style="margin:0;color:var(--dim)">반복 업무 1건 자동화</p><ul><li>업무 분석 · 설계</li><li>봇 개발 · 테스트</li><li>운영 가이드 · 인수인계</li></ul><a class="btn btn-line" href="#contact" data-plan="베이직">베이직 상담</a></div>
+      <div class="plan hot"><span class="tier">STANDARD · 추천</span><div class="price">800<small>만원</small></div><p style="margin:0;color:var(--dim)">여러 업무·시스템을 묶는 자동화</p><ul><li>베이직 전 항목 포함</li><li>여러 시스템 간 데이터 연동</li><li>예외 알림 · 로그 설계</li><li>담당자 교육</li></ul><a class="btn btn-fill" href="#contact" data-plan="스탠다드">스탠다드 상담</a></div>
+      <div class="plan"><span class="tier">PREMIUM</span><div class="price">협의</div><p style="margin:0;color:var(--dim)">전사 도입 · 프레임워크 구축</p><ul><li>도입 로드맵 · ROI 분석</li><li>개발 표준 · 프레임워크</li><li>사내 개발자 양성 교육</li><li>운영 · 유지보수 계약</li></ul><a class="btn btn-line" href="#contact" data-plan="프리미엄">프리미엄 상담</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="ceo">
+  <div class="wrap">
+    <div class="ceo">
+      <div class="badge" aria-hidden="true">
+        <div class="top"><span>CEO</span><span>WOW-001</span></div>
+        <div class="face">김승화</div>
+        <div class="who"><b>김승화</b><span>Founder &amp; CEO</span></div>
+      </div>
+      <div class="ceo-body">
+        <p class="label">About the CEO</p>
+        <h2>현장에서 봇을 만들어 온 사람이<br>직접 맡습니다</h2>
+        <p>일본 리츠메이칸대학교를 졸업하고 글로벌 컨설팅사 <strong>ABeam Consulting</strong>에서 RPA 기술 리더로 설계·개발·교육·컨설팅을 맡았습니다. 지금은 WOW Automation 대표로 모든 프로젝트를 직접 총괄하며, 한양대학교 블록체인금융융합 대학원에서 공부하고 있습니다.</p>
+        <ul class="tl">
+          <li><small>EDUCATION</small>리츠메이칸대학교 (일본 교토)</li>
+          <li><small>TRAINING</small>한국소프트웨어인재개발원</li>
+          <li><small>CAREER</small>ABeam Consulting — RPA 기술 리더</li>
+          <li><small>NOW</small>WOW Automation 대표 · 한양대학교 대학원 블록체인금융융합</li>
+        </ul>
+        <div class="langs"><span>한국어 Native</span><span>日本語 JLPT N1</span><span>English</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head"><div><p class="label">FAQ</p><h2>자주 묻는 질문</h2></div></div>
+    <div class="faq">
+      <details><summary>어떤 업무가 자동화에 맞나요?</summary><p>규칙이 정해져 있고 매일·매주 반복되는 PC 업무입니다. ERP·그룹웨어 데이터 입력, 엑셀 취합과 정산, 정해진 양식의 보고서 작성, 여러 시스템 사이의 복사·붙여넣기가 대표적입니다.</p></details>
+      <details><summary>RPA 라이선스 비용은 따로 드나요?</summary><p>사용하는 툴에 따라 다릅니다. Power Automate처럼 이미 쓰고 계신 라이선스로 되는 경우도 많아서, 상담 때 현재 환경을 보고 가장 저렴한 조합을 추천해 드립니다.</p></details>
+      <details><summary>원격으로도 진행되나요?</summary><p>네. 서울·경기·인천은 방문이 가능하고, 그 외 지역과 해외 법인은 원격으로 진행합니다. 일본어 대응도 됩니다.</p></details>
+      <details><summary>납품 후 봇이 멈추면요?</summary><p>화면이 바뀌거나 예외 상황으로 봇이 멈추는 일은 생깁니다. 운영 가이드와 오류 알림을 함께 넘겨드리고, 유지보수 문의에도 빠르게 대응합니다.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="contact">
+  <div class="wrap">
+    <div class="contact">
+      <div class="contact-info">
+        <p class="label">Contact</p>
+        <h2>30분이면 답이 나옵니다</h2>
+        <p>자동화하고 싶은 업무를 적어 주시면 자동화 가능 여부, 예상 기간, 비용 견적을 안내해 드립니다.</p>
+        <div class="mailbox"><div><small>EMAIL</small><span id="mail">kimseunghwa102@gmail.com</span></div><button class="copy" type="button" id="copyMail">주소 복사</button></div>
+        <div class="facts">
+          <div><b>지역</b>서울 · 경기 · 인천 방문 / 전국 · 해외 원격</div>
+          <div><b>언어</b>한국어 · 日本語 · English</div>
+          <div><b>회신</b>영업일 기준 24시간 안에 답장</div>
+        </div>
+      </div>
+      <form id="form" novalidate>
+        <div class="two">
+          <div><label for="f-name">회사명 / 이름</label><input id="f-name" name="name" type="text" required placeholder="예: ○○병원 원무팀 홍길동"></div>
+          <div><label for="f-email">회신받을 이메일</label><input id="f-email" name="email" type="email" required placeholder="name@company.com"></div>
+        </div>
+        <div><label for="f-plan">관심 패키지</label>
+          <select id="f-plan" name="plan"><option>아직 모르겠어요</option><option>베이직</option><option>스탠다드</option><option>프리미엄</option><option>교육만</option></select></div>
+        <div><label for="f-msg">자동화하고 싶은 업무</label><textarea id="f-msg" name="message" required placeholder="예: 매일 아침 ERP에서 전일 매출을 뽑아 엑셀로 정리하고 팀장님께 메일 보내는 업무 (약 1시간)"></textarea></div>
+        <button class="btn btn-fill" type="submit" style="justify-content:center">문의 보내기 →</button>
+        <div id="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div><div class="f-brand">WOW AUTOMATION</div><div style="margin-top:8px">© 2026 WOW Automation Company. All rights reserved.</div></div>
+    <div class="mono">RPA · AUTOMATION · CONSULTING<br><b>13 PROJECTS · 4+ YEARS</b></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var refs=[
+    ["2022.03 – 2022.06","충남대학교병원 RPA 구축","Evolvesoft","구축"],
+    ["2022.06 – 2023.03","계명대학교동산의료원 RPA 구축","Evolvesoft","구축"],
+    ["2023.03","로얄앤컴퍼니 RPA 도입 컨설팅","ABeam Consulting","컨설팅"],
+    ["2023.03 – 2023.05","DIC RPA 구축 및 교육","ABeam Consulting","구축"],
+    ["2023.05 – 2024.06","Mitutoyo Korea RPA 구축","ABeam Consulting","구축"],
+    ["2024.07 – 2024.09","한국자동차환경협회 RPA 구축","ToBeWAY","구축"],
+    ["2024.09 – 2025.03","세무법인신세계 RPA 프레임워크 구축 및 컨설팅","세무법인신세계","프레임워크"],
+    ["2024.09 – 2025.01","경동나비엔 RPA 프로젝트 참가","알텐코리아","구축"],
+    ["2025.03 – 2025.05","EDIYA Coffee RPA 도입 PoC","알텐코리아","PoC"],
+    ["2025.04","환인제약 RPA 도입 컨설팅 및 교육","알텐코리아","컨설팅"],
+    ["2025.06 – 2025.09","Mitutoyo Korea RPA 2차 구축","Mitutoyo Korea","구축"],
+    ["2025.09 – 2025.10","KSA 한국표준협회 RPA 구축","KSA 한국표준협회","구축"],
+    ["2026.01 – 2026.03","(주)셀트리온제약 RPA 구축","㈜웅진","구축"]
+  ].reverse();
+  var cls={"구축":"","컨설팅":"c","프레임워크":"f","PoC":"p"};
+  var ledger=document.getElementById("ledger");
+  refs.forEach(function(r){
+    var d=document.createElement("div");d.className="row";d.dataset.k=r[3];
+    d.innerHTML='<span class="per">'+r[0]+'</span><span class="nm">'+r[1]+'</span><span class="cl">'+r[2]+'</span><span class="chip '+cls[r[3]]+'">'+r[3]+'</span>';
+    ledger.appendChild(d);
+  });
+  var counts={};refs.forEach(function(r){counts[r[3]]=(counts[r[3]]||0)+1});
+  document.querySelectorAll(".filters button").forEach(function(b){
+    var f=b.dataset.f;if(f!=="all")b.textContent=f+" "+counts[f];
+    b.addEventListener("click",function(){
+      document.querySelectorAll(".filters button").forEach(function(x){x.setAttribute("aria-pressed",x===b?"true":"false")});
+      ledger.querySelectorAll(".row:not(.head)").forEach(function(row){row.hidden=!(f==="all"||row.dataset.k===f)});
+    });
+  });
+
+  // ROI
+  function won(n){return Math.round(n).toLocaleString("ko-KR")+"원"}
+  function calc(min,ppl,wage,rate){
+    var hours=min/60*ppl*21*(rate/100);
+    var monthly=hours*wage;
+    return {hours:hours,year:monthly*12,pay:monthly>0?3000000/monthly:Infinity};
+  }
+  var ids=["min","ppl","wage","rate"];
+  function upd(){
+    var v=ids.map(function(i){return +document.getElementById("r-"+i).value});
+    document.getElementById("o-min").textContent=v[0]>=60?(Math.floor(v[0]/60)+"시간"+(v[0]%60?" "+v[0]%60+"분":"")):v[0]+"분";
+    document.getElementById("o-ppl").textContent=v[1]+"명";
+    document.getElementById("o-wage").textContent=won(v[2]);
+    document.getElementById("o-rate").textContent=v[3]+"%";
+    var r=calc(v[0],v[1],v[2],v[3]);
+    var y=r.year;
+    document.getElementById("o-year").textContent=y>=1e8?(y/1e8).toFixed(1)+"억원":Math.round(y/1e4).toLocaleString("ko-KR")+"만원";
+    document.getElementById("o-hours").textContent=Math.round(r.hours)+"h";
+    document.getElementById("o-pay").textContent=r.pay<1?"1개월 미만":r.pay.toFixed(1)+"개월";
+  }
+  ids.forEach(function(i){document.getElementById("r-"+i).addEventListener("input",upd)});upd();
+
+  // Plan buttons preselect
+  document.querySelectorAll("[data-plan]").forEach(function(a){a.addEventListener("click",function(){document.getElementById("f-plan").value=a.dataset.plan})});
+
+  // Copy
+  function copyText(t,btn){
+    var done=function(){var o=btn.textContent;btn.textContent="복사됨";setTimeout(function(){btn.textContent=o},1500)};
+    try{navigator.clipboard.writeText(t).then(done,function(){sel()})}catch(e){sel()}
+    function sel(){var s=window.getSelection(),r=document.createRange();r.selectNodeContents(document.getElementById("mail"));s.removeAllRanges();s.addRange(r)}
+  }
+  document.getElementById("copyMail").addEventListener("click",function(){copyText("kimseunghwa102@gmail.com",this)});
+
+  // Form → Formspree; falls back to a copy-ready message where outbound requests are blocked
+  var form=document.getElementById("form"),st=document.getElementById("status");
+  form.addEventListener("submit",function(e){
+    e.preventDefault();
+    var name=document.getElementById("f-name").value.trim(),email=document.getElementById("f-email").value.trim(),msg=document.getElementById("f-msg").value.trim();
+    if(!name||!email||!msg||email.indexOf("@")<1){st.innerHTML='<p class="status fb">회사명, 이메일, 업무 내용을 모두 적어 주세요.</p>';return}
+    var data=new FormData(form);data.append("_subject","[WOW Automation 문의] "+name);
+    var btn=form.querySelector("button[type=submit]");btn.disabled=true;btn.textContent="보내는 중…";
+    fetch("https://formspree.io/f/myklkvlb",{method:"POST",body:data,headers:{Accept:"application/json"}})
+      .then(function(r){if(!r.ok)throw 0;form.reset();st.innerHTML='<p class="status ok">문의가 접수됐습니다. 영업일 기준 24시간 안에 '+email.replace(/</g,"")+' 로 답장드리겠습니다.</p>'})
+      .catch(function(){
+        var body="회사/이름: "+name+"\n회신 이메일: "+email+"\n관심 패키지: "+document.getElementById("f-plan").value+"\n\n"+msg;
+        st.innerHTML='<div class="status fb">이 화면에서는 자동 전송이 되지 않았습니다. 아래 내용을 복사해 kimseunghwa102@gmail.com 으로 보내 주세요.<pre id="pv"></pre><button type="button" class="copy" id="cpv">내용 복사</button></div>';
+        document.getElementById("pv").textContent=body;
+        document.getElementById("cpv").addEventListener("click",function(){var b=this;try{navigator.clipboard.writeText(body).then(function(){b.textContent="복사됨"},function(){})}catch(x){}});
+      })
+      .then(function(){btn.disabled=false;btn.textContent="문의 보내기 →"});
+  });
+})();
+</script>
+</body>
+</html>
