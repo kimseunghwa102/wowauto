@@ -8,7 +8,7 @@
 <meta name="description" content="WOW Automation — RPA 업무 자동화 구축·컨설팅. 병원·제약·제조·세무·협회 13개 프로젝트, 자동화 업무 1건 300만원부터.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Black+Han+Sans&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Be+Vietnam+Pro:wght@400;500;700;800&family=Black+Han+Sans&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 /* Layout: industrial signage — full-width hazard bands, a bot run-log as the hero object, ledger-style reference list */
 :root{
@@ -246,20 +246,39 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
 footer .f-brand{font-family:var(--display-en);font-size:28px;letter-spacing:3px;color:var(--paper);line-height:1}
 footer .mono{font-family:var(--mono);font-size:11.5px;letter-spacing:1.5px;text-align:right}
 footer .mono b{color:var(--signal);font-weight:600}
+
+/* i18n */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+#lang{background:var(--plate);color:var(--paper);border:1px solid var(--rule);font-family:var(--mono);font-size:12px;padding:7px 8px;border-radius:0;cursor:pointer}
+#lang:hover{border-color:var(--signal)}
+.plan-sub{margin:0;color:var(--dim)}
+@media (max-width:860px){.nav ul{gap:12px}}
+@media (max-width:540px){.cta-li{display:none}}
+html[lang="ja"]{--display-ko:'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif;--body:'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif}
+html[lang="ja"] h1,html[lang="ja"] h2{font-weight:900;letter-spacing:0}
+html[lang="vi"]{--display-ko:'Be Vietnam Pro','Segoe UI',Arial,sans-serif;--body:'Be Vietnam Pro','Segoe UI',Arial,sans-serif}
+html[lang="vi"] h1,html[lang="vi"] h2{font-weight:800;letter-spacing:-.5px}
+html[lang="en"] h1{letter-spacing:-.5px}
 </style>
 </head>
 <body>
-
-<nav class="nav" aria-label="주 메뉴">
+<nav class="nav" aria-label="Main">
   <div class="wrap">
     <a class="brand" href="#top"><span class="brand-mark">WOW</span><span class="brand-name">WOW<small>AUTOMATION CO.</small></span></a>
     <ul>
-      <li><a href="#services">서비스</a></li>
-      <li><a href="#references">레퍼런스</a></li>
-      <li><a href="#roi">절감 계산기</a></li>
-      <li><a href="#pricing">비용</a></li>
-      <li><a href="#ceo">대표 소개</a></li>
-      <li class="keep"><a class="cta" href="#contact">무료 상담</a></li>
+      <li><a href="#services" data-i18n="n_svc">서비스</a></li>
+      <li><a href="#references" data-i18n="n_ref">레퍼런스</a></li>
+      <li><a href="#roi" data-i18n="n_roi">절감 계산기</a></li>
+      <li><a href="#pricing" data-i18n="n_price">비용</a></li>
+      <li><a href="#ceo" data-i18n="n_ceo">대표 소개</a></li>
+      <li class="keep"><label class="sr" for="lang">Language</label>
+        <select id="lang" aria-label="Language">
+          <option value="ko">한국어</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="vi">Tiếng Việt</option>
+        </select></li>
+      <li class="keep cta-li"><a class="cta" href="#contact" data-i18n="n_cta">무료 상담</a></li>
     </ul>
   </div>
 </nav>
@@ -267,70 +286,67 @@ footer .mono b{color:var(--signal);font-weight:600}
 <header class="hero" id="top">
   <div class="wrap">
     <div>
-      <p class="eyebrow">RPA 구축 · 컨설팅 · 교육</p>
-      <h1>사람이 하던 반복 업무,<br><em>봇이 대신</em> 끝냅니다</h1>
-      <p class="lede">병원·제약·제조·세무법인·협회에서 검증된 RPA 자동화. 업무 분석부터 봇 개발, 운영 이관까지 한 팀이 끝까지 책임집니다. <strong>자동화 업무 1건 300만원부터.</strong></p>
+      <p class="eyebrow" data-i18n="h_eye">RPA 구축 · 컨설팅 · 교육</p>
+      <h1 data-i18n="h_title">사람이 하던 반복 업무,<br><em>봇이 대신</em> 끝냅니다</h1>
+      <p class="lede" data-i18n="h_lede">병원·제약·제조·세무법인·협회에서 검증된 RPA 자동화. 업무 분석부터 봇 개발, 운영 이관까지 한 팀이 끝까지 책임집니다. <strong>자동화 업무 1건 300만원부터.</strong></p>
       <div class="btns">
-        <a class="btn btn-fill" href="#contact">30분 무료 상담 신청 →</a>
-        <a class="btn btn-line" href="#roi">우리 회사 절감액 계산</a>
+        <a class="btn btn-fill" href="#contact" data-i18n="h_b1">30분 무료 상담 신청 →</a>
+        <a class="btn btn-line" href="#roi" data-i18n="h_b2">우리 회사 절감액 계산</a>
       </div>
       <div class="stats">
-        <div class="stat"><b>13</b><span>완료 프로젝트</span></div>
-        <div class="stat"><b>4+</b><span>년 현장 경험</span></div>
-        <div class="stat"><b>6</b><span>개 업종 구축</span></div>
+        <div class="stat"><b>13</b><span data-i18n="s1">완료 프로젝트</span></div>
+        <div class="stat"><b>4+</b><span data-i18n="s2">년 현장 경험</span></div>
+        <div class="stat"><b>6</b><span data-i18n="s3">개 업종 구축</span></div>
       </div>
     </div>
 
-    <figure class="runlog" aria-label="RPA 봇 실행 로그 예시" style="margin:0">
+    <figure class="runlog" style="margin:0">
       <div class="runlog-top"><span>bot://daily-settlement.job</span><b>● RUNNING</b></div>
       <ol>
-        <li><span class="t">08:00:01</span><span>그룹웨어 로그인</span><span class="s">OK</span></li>
-        <li><span class="t">08:00:09</span><span>ERP 전일 매출 조회 (412건)</span><span class="s">OK</span></li>
-        <li><span class="t">08:00:47</span><span>엑셀 정산 양식 작성</span><span class="s">OK</span></li>
-        <li><span class="t">08:01:12</span><span>예외 3건 담당자 알림</span><span class="w">WARN</span></li>
-        <li><span class="t">08:01:20</span><span>보고서 PDF 메일 발송</span><span class="s">OK</span></li>
-        <li class="total"><span class="t">08:01:21</span><span>작업 완료<span class="blink">_</span></span><span class="s">DONE</span></li>
+        <li><span class="t">08:00:01</span><span data-i18n="l1">그룹웨어 로그인</span><span class="s">OK</span></li>
+        <li><span class="t">08:00:09</span><span data-i18n="l2">ERP 전일 매출 조회 (412건)</span><span class="s">OK</span></li>
+        <li><span class="t">08:00:47</span><span data-i18n="l3">엑셀 정산 양식 작성</span><span class="s">OK</span></li>
+        <li><span class="t">08:01:12</span><span data-i18n="l4">예외 3건 담당자 알림</span><span class="w">WARN</span></li>
+        <li><span class="t">08:01:20</span><span data-i18n="l5">보고서 PDF 메일 발송</span><span class="s">OK</span></li>
+        <li class="total"><span class="t">08:01:21</span><span><span data-i18n="l6">작업 완료</span><span class="blink">_</span></span><span class="s">DONE</span></li>
       </ol>
       <div class="runlog-foot">
-        <div><small>사람이 할 때</small><strong>2시간 10분</strong></div>
-        <div><small>봇이 할 때</small><strong class="y">1분 20초</strong></div>
+        <div><small data-i18n="f1">사람이 할 때</small><strong data-i18n="f1v">2시간 10분</strong></div>
+        <div><small data-i18n="f2">봇이 할 때</small><strong class="y" data-i18n="f2v">1분 20초</strong></div>
       </div>
     </figure>
   </div>
 </header>
 
 <div class="hazard" aria-hidden="true"></div>
-<div class="ticker" aria-hidden="true"><div>
-  <span>충남대학교병원</span><span>계명대학교동산의료원</span><span>MITUTOYO KOREA</span><span>EDIYA COFFEE</span><span>KSA 한국표준협회</span><span>셀트리온제약</span><span>경동나비엔</span><span>환인제약</span><span>세무법인신세계</span><span>DIC</span>
-  <span>충남대학교병원</span><span>계명대학교동산의료원</span><span>MITUTOYO KOREA</span><span>EDIYA COFFEE</span><span>KSA 한국표준협회</span><span>셀트리온제약</span><span>경동나비엔</span><span>환인제약</span><span>세무법인신세계</span><span>DIC</span>
-</div></div>
+<div class="ticker" aria-hidden="true"><div id="ticker"></div></div>
 
 <section class="band" id="services">
   <div class="wrap">
     <div class="sec-head">
-      <div><p class="label">Services</p><h2>도입 검토부터 운영까지</h2></div>
-      <p>처음 RPA를 들여다보는 회사도, 이미 봇이 돌아가는 회사도 필요한 단계만 골라 맡기시면 됩니다.</p>
+      <div><p class="label">Services</p><h2 data-i18n="sv_t">도입 검토부터 운영까지</h2></div>
+      <p data-i18n="sv_d">처음 RPA를 들여다보는 회사도, 이미 봇이 돌아가는 회사도 필요한 단계만 골라 맡기시면 됩니다.</p>
     </div>
     <div class="svc">
-      <article><code>BUILD</code><h3>RPA 봇 구축</h3><p>UiPath·Power Automate 등 주요 플랫폼으로 데이터 입력, 문서 처리, 시스템 간 연동 같은 반복 업무를 자동화합니다.</p></article>
-      <article><code>CONSULT</code><h3>도입 컨설팅</h3><p>현업 인터뷰로 자동화 후보를 고르고, ROI를 계산해 어떤 업무부터 시작할지 로드맵을 그립니다.</p></article>
-      <article><code>FRAMEWORK</code><h3>프레임워크 설계</h3><p>재사용 컴포넌트와 개발 표준을 만들어, 봇이 늘어나도 유지보수가 무너지지 않는 구조를 잡습니다.</p></article>
-      <article><code>POC</code><h3>PoC · 파일럿</h3><p>본 계약 전에 업무 1~2건을 먼저 자동화해 실제 절감 효과를 숫자로 확인합니다.</p></article>
-      <article><code>TRAIN</code><h3>사내 교육</h3><p>현업 담당자와 내부 개발자를 위한 실습 중심 교육. 셀트리온제약에서 100명 이상을 교육했습니다.</p></article>
-      <article><code>OPS</code><h3>운영 · 유지보수</h3><p>화면 변경이나 예외 발생으로 봇이 멈추면 빠르게 원인을 찾고 수정합니다.</p></article>
+      <article><code>BUILD</code><h3 data-i18n="c1t">RPA 봇 구축</h3><p data-i18n="c1d">UiPath·Power Automate 등 주요 플랫폼으로 데이터 입력, 문서 처리, 시스템 간 연동 같은 반복 업무를 자동화합니다.</p></article>
+      <article><code>CONSULT</code><h3 data-i18n="c2t">도입 컨설팅</h3><p data-i18n="c2d">현업 인터뷰로 자동화 후보를 고르고, ROI를 계산해 어떤 업무부터 시작할지 로드맵을 그립니다.</p></article>
+      <article><code>FRAMEWORK</code><h3 data-i18n="c3t">프레임워크 설계</h3><p data-i18n="c3d">재사용 컴포넌트와 개발 표준을 만들어, 봇이 늘어나도 유지보수가 무너지지 않는 구조를 잡습니다.</p></article>
+      <article><code>POC</code><h3 data-i18n="c4t">PoC · 파일럿</h3><p data-i18n="c4d">본 계약 전에 업무 1~2건을 먼저 자동화해 실제 절감 효과를 숫자로 확인합니다.</p></article>
+      <article><code>TRAIN</code><h3 data-i18n="c5t">사내 교육</h3><p data-i18n="c5d">현업 담당자와 내부 개발자를 위한 실습 중심 교육. 셀트리온제약에서 100명 이상을 교육했습니다.</p></article>
+      <article><code>OPS</code><h3 data-i18n="c6t">운영 · 유지보수</h3><p data-i18n="c6d">화면 변경이나 예외 발생으로 봇이 멈추면 빠르게 원인을 찾고 수정합니다.</p></article>
     </div>
   </div>
 </section>
 
 <section id="why">
   <div class="wrap">
-    <div class="sec-head"><div><p class="label">Why WOW</p><h2>대형 SI 대비 1/3 비용, 결과는 같게</h2></div></div>
+    <div class="sec-head"><div><p class="label">Why WOW</p><h2 data-i18n="wh_t">대형 SI 대비 1/3 비용, 결과는 같게</h2></div></div>
     <div class="why">
-      <div><h3>업계 최저가</h3><p>자동화 업무 1건 300만원. 견적이 단순하고 숨은 비용이 없습니다.</p></div>
-      <div><h3>6개 업종 경험</h3><p>병원, 제약, 제조, 세무법인, 협회, F&amp;B 업무를 이미 다뤄봤습니다.</p></div>
-      <div><h3>풀패키지</h3><p>분석 → 개발 → 테스트 → 납품 → 운영 지원까지 한 번에.</p></div>
-      <div><h3>빠른 납기</h3><p>소규모 자동화는 보통 2~4주 안에 운영에 들어갑니다.</p></div>
-      <div><h3>주 단위 공유</h3><p>진행 상황을 매주 보고하고, 납품 후 이슈도 바로 대응합니다.</p></div>
+      <div><h3 data-i18n="w1t">업계 최저가</h3><p data-i18n="w1d">자동화 업무 1건 300만원. 견적이 단순하고 숨은 비용이 없습니다.</p></div>
+      <div><h3 data-i18n="w2t">6개 업종 경험</h3><p data-i18n="w2d">병원, 제약, 제조, 세무법인, 협회, F&amp;B 업무를 이미 다뤄봤습니다.</p></div>
+      <div><h3 data-i18n="w3t">풀패키지</h3><p data-i18n="w3d">분석 → 개발 → 테스트 → 납품 → 운영 지원까지 한 번에.</p></div>
+      <div><h3 data-i18n="w4t">빠른 납기</h3><p data-i18n="w4d">소규모 자동화는 보통 2~4주 안에 운영에 들어갑니다.</p></div>
+      <div><h3 data-i18n="w5t">주 단위 공유</h3><p data-i18n="w5d">진행 상황을 매주 보고하고, 납품 후 이슈도 바로 대응합니다.</p></div>
     </div>
   </div>
 </section>
@@ -338,17 +354,17 @@ footer .mono b{color:var(--signal);font-weight:600}
 <section class="band" id="references">
   <div class="wrap">
     <div class="sec-head">
-      <div><p class="label">References · 2022–2026</p><h2>레퍼런스 13건</h2></div>
-      <div class="filters" role="group" aria-label="구분 필터">
-        <button type="button" data-f="all" aria-pressed="true">전체 13</button>
-        <button type="button" data-f="구축" aria-pressed="false">구축</button>
-        <button type="button" data-f="컨설팅" aria-pressed="false">컨설팅</button>
-        <button type="button" data-f="프레임워크" aria-pressed="false">프레임워크</button>
-        <button type="button" data-f="PoC" aria-pressed="false">PoC</button>
+      <div><p class="label">References · 2022–2026</p><h2 data-i18n="rf_t">레퍼런스 13건</h2></div>
+      <div class="filters" role="group" aria-label="Filter">
+        <button type="button" data-f="all" aria-pressed="true"></button>
+        <button type="button" data-f="b" aria-pressed="false"></button>
+        <button type="button" data-f="c" aria-pressed="false"></button>
+        <button type="button" data-f="f" aria-pressed="false"></button>
+        <button type="button" data-f="p" aria-pressed="false"></button>
       </div>
     </div>
     <div class="ledger" id="ledger">
-      <div class="row head"><span>사업기간</span><span>사업명</span><span>발주처</span><span>구분</span></div>
+      <div class="row head"><span data-i18n="th1">사업기간</span><span data-i18n="th2">사업명</span><span data-i18n="th3">발주처</span><span data-i18n="th4">구분</span></div>
     </div>
   </div>
 </section>
@@ -356,23 +372,23 @@ footer .mono b{color:var(--signal);font-weight:600}
 <section id="roi">
   <div class="wrap">
     <div class="sec-head">
-      <div><p class="label">ROI Calculator</p><h2>우리 회사는 얼마나 아낄까</h2></div>
-      <p>반복 업무 하나를 기준으로 입력해 보세요. 300만원 투자가 몇 달 만에 회수되는지 바로 나옵니다.</p>
+      <div><p class="label">ROI Calculator</p><h2 data-i18n="roi_t">우리 회사는 얼마나 아낄까</h2></div>
+      <p data-i18n="roi_d">반복 업무 하나를 기준으로 입력해 보세요. 300만원 투자가 몇 달 만에 회수되는지 바로 나옵니다.</p>
     </div>
     <div class="roi">
       <div class="roi-in">
-        <div class="field"><label for="r-min">하루 반복 업무 시간 <output id="o-min">90분</output></label><input id="r-min" type="range" min="10" max="480" step="10" value="90"></div>
-        <div class="field"><label for="r-ppl">이 업무를 하는 인원 <output id="o-ppl">2명</output></label><input id="r-ppl" type="range" min="1" max="30" step="1" value="2"></div>
-        <div class="field"><label for="r-wage">1인 시간당 인건비 <output id="o-wage">25,000원</output></label><input id="r-wage" type="range" min="10000" max="80000" step="1000" value="25000"></div>
-        <div class="field"><label for="r-rate">자동화 비율 <output id="o-rate">80%</output></label><input id="r-rate" type="range" min="30" max="100" step="5" value="80"></div>
+        <div class="field"><label for="r-min"><span data-i18n="r1">하루 반복 업무 시간</span> <output id="o-min"></output></label><input id="r-min" type="range" min="10" max="480" step="10" value="90"></div>
+        <div class="field"><label for="r-ppl"><span data-i18n="r2">이 업무를 하는 인원</span> <output id="o-ppl"></output></label><input id="r-ppl" type="range" min="1" max="30" step="1" value="2"></div>
+        <div class="field"><label for="r-wage"><span data-i18n="r3">1인 시간당 인건비</span> <output id="o-wage"></output></label><input id="r-wage" type="range" min="10000" max="80000" step="1000" value="25000"></div>
+        <div class="field"><label for="r-rate"><span data-i18n="r4">자동화 비율</span> <output id="o-rate"></output></label><input id="r-rate" type="range" min="30" max="100" step="5" value="80"></div>
       </div>
       <div class="roi-out" aria-live="polite">
-        <div><div class="k">연간 절감 인건비</div><div class="big" id="o-year">0원</div></div>
+        <div><div class="k" data-i18n="ry">연간 절감 인건비</div><div class="big" id="o-year">0</div></div>
         <div class="grid">
-          <div><span class="k">월 절감 시간</span><b id="o-hours">0h</b></div>
-          <div><span class="k">300만원 회수까지</span><b id="o-pay">0개월</b></div>
+          <div><span class="k" data-i18n="rh">월 절감 시간</span><b id="o-hours">0h</b></div>
+          <div><span class="k" data-i18n="rp">300만원 회수까지</span><b id="o-pay">0</b></div>
         </div>
-        <p class="note">월 21 근무일 기준 추정치입니다. 실제 효과는 무료 상담에서 업무를 보고 산정해 드립니다.</p>
+        <p class="note" data-i18n="rn">월 21 근무일 기준 추정치입니다. 실제 효과는 무료 상담에서 업무를 보고 산정해 드립니다.</p>
       </div>
     </div>
   </div>
@@ -380,12 +396,12 @@ footer .mono b{color:var(--signal);font-weight:600}
 
 <section class="band" id="process">
   <div class="wrap">
-    <div class="sec-head"><div><p class="label">Process</p><h2>이렇게 진행합니다</h2></div></div>
+    <div class="sec-head"><div><p class="label">Process</p><h2 data-i18n="pr_t">이렇게 진행합니다</h2></div></div>
     <div class="steps">
-      <div class="step"><div class="n">01</div><div class="bar"></div><h3>현업 분석</h3><p>업무 흐름을 보고 자동화 대상을 고르고, 효과를 미리 계산합니다.</p><small>1주</small></div>
-      <div class="step"><div class="n">02</div><div class="bar"></div><h3>설계 · 개발</h3><p>프로세스를 설계하고 봇을 만든 뒤 단위 테스트를 돌립니다.</p><small>1–2주</small></div>
-      <div class="step"><div class="n">03</div><div class="bar"></div><h3>테스트 · 검수</h3><p>실제 데이터로 시나리오 테스트, 예외 처리, 현업 UAT를 진행합니다.</p><small>3–5일</small></div>
-      <div class="step"><div class="n">04</div><div class="bar"></div><h3>운영 · 이관</h3><p>배포 후 운영 가이드를 드리고 담당자 교육까지 마칩니다.</p><small>2–3일</small></div>
+      <div class="step"><div class="n">01</div><div class="bar"></div><h3 data-i18n="p1t">현업 분석</h3><p data-i18n="p1d">업무 흐름을 보고 자동화 대상을 고르고, 효과를 미리 계산합니다.</p><small data-i18n="p1s">1주</small></div>
+      <div class="step"><div class="n">02</div><div class="bar"></div><h3 data-i18n="p2t">설계 · 개발</h3><p data-i18n="p2d">프로세스를 설계하고 봇을 만든 뒤 단위 테스트를 돌립니다.</p><small data-i18n="p2s">1–2주</small></div>
+      <div class="step"><div class="n">03</div><div class="bar"></div><h3 data-i18n="p3t">테스트 · 검수</h3><p data-i18n="p3d">실제 데이터로 시나리오 테스트, 예외 처리, 현업 UAT를 진행합니다.</p><small data-i18n="p3s">3–5일</small></div>
+      <div class="step"><div class="n">04</div><div class="bar"></div><h3 data-i18n="p4t">운영 · 이관</h3><p data-i18n="p4d">배포 후 운영 가이드를 드리고 담당자 교육까지 마칩니다.</p><small data-i18n="p4s">2–3일</small></div>
     </div>
   </div>
 </section>
@@ -393,13 +409,13 @@ footer .mono b{color:var(--signal);font-weight:600}
 <section id="pricing">
   <div class="wrap">
     <div class="sec-head">
-      <div><p class="label">Pricing</p><h2>견적은 단순하게</h2></div>
-      <p>부가세 별도. 정확한 범위는 30분 무료 상담 후 확정합니다.</p>
+      <div><p class="label">Pricing</p><h2 data-i18n="pc_t">견적은 단순하게</h2></div>
+      <p data-i18n="pc_d">부가세 별도. 정확한 범위는 30분 무료 상담 후 확정합니다.</p>
     </div>
     <div class="plans">
-      <div class="plan"><span class="tier">BASIC</span><div class="price">300<small>만원</small></div><p style="margin:0;color:var(--dim)">반복 업무 1건 자동화</p><ul><li>업무 분석 · 설계</li><li>봇 개발 · 테스트</li><li>운영 가이드 · 인수인계</li></ul><a class="btn btn-line" href="#contact" data-plan="베이직">베이직 상담</a></div>
-      <div class="plan hot"><span class="tier">STANDARD · 추천</span><div class="price">800<small>만원</small></div><p style="margin:0;color:var(--dim)">여러 업무·시스템을 묶는 자동화</p><ul><li>베이직 전 항목 포함</li><li>여러 시스템 간 데이터 연동</li><li>예외 알림 · 로그 설계</li><li>담당자 교육</li></ul><a class="btn btn-fill" href="#contact" data-plan="스탠다드">스탠다드 상담</a></div>
-      <div class="plan"><span class="tier">PREMIUM</span><div class="price">협의</div><p style="margin:0;color:var(--dim)">전사 도입 · 프레임워크 구축</p><ul><li>도입 로드맵 · ROI 분석</li><li>개발 표준 · 프레임워크</li><li>사내 개발자 양성 교육</li><li>운영 · 유지보수 계약</li></ul><a class="btn btn-line" href="#contact" data-plan="프리미엄">프리미엄 상담</a></div>
+      <div class="plan"><span class="tier">BASIC</span><div class="price" data-i18n="pp1">300<small>만원</small></div><p class="plan-sub" data-i18n="ps1">반복 업무 1건 자동화</p><ul><li data-i18n="b1">업무 분석 · 설계</li><li data-i18n="b2">봇 개발 · 테스트</li><li data-i18n="b3">운영 가이드 · 인수인계</li></ul><a class="btn btn-line" href="#contact" data-plan="basic" data-i18n="pb1">베이직 상담</a></div>
+      <div class="plan hot"><span class="tier" data-i18n="tier2">STANDARD · 추천</span><div class="price" data-i18n="pp2">800<small>만원</small></div><p class="plan-sub" data-i18n="ps2">여러 업무·시스템을 묶는 자동화</p><ul><li data-i18n="s_1">베이직 전 항목 포함</li><li data-i18n="s_2">여러 시스템 간 데이터 연동</li><li data-i18n="s_3">예외 알림 · 로그 설계</li><li data-i18n="s_4">담당자 교육</li></ul><a class="btn btn-fill" href="#contact" data-plan="standard" data-i18n="pb2">스탠다드 상담</a></div>
+      <div class="plan"><span class="tier">PREMIUM</span><div class="price" data-i18n="pp3">협의</div><p class="plan-sub" data-i18n="ps3">전사 도입 · 프레임워크 구축</p><ul><li data-i18n="m1">도입 로드맵 · ROI 분석</li><li data-i18n="m2">개발 표준 · 프레임워크</li><li data-i18n="m3">사내 개발자 양성 교육</li><li data-i18n="m4">운영 · 유지보수 계약</li></ul><a class="btn btn-line" href="#contact" data-plan="premium" data-i18n="pb3">프리미엄 상담</a></div>
     </div>
   </div>
 </section>
@@ -409,20 +425,20 @@ footer .mono b{color:var(--signal);font-weight:600}
     <div class="ceo">
       <div class="badge">
         <div class="top" aria-hidden="true"><span>CEO</span><span>WOW-001</span></div>
-        <img class="face" src="ceo.jpg" width="180" height="232" alt="WOW Automation 대표 김승화">
-        <div class="who"><b>김승화</b><span>Founder &amp; CEO</span></div>
+        <img class="face" src="ceo.jpg" width="180" height="232" alt="WOW Automation CEO" data-i18n-alt="ceo_alt">
+        <div class="who"><b data-i18n="ceo_nm">김승화</b><span>Founder &amp; CEO</span></div>
       </div>
       <div class="ceo-body">
         <p class="label">About the CEO</p>
-        <h2>현장에서 봇을 만들어 온 사람이<br>직접 맡습니다</h2>
-        <p>일본 리츠메이칸대학교를 졸업하고 글로벌 컨설팅사 <strong>ABeam Consulting</strong>에서 RPA 기술 리더로 설계·개발·교육·컨설팅을 맡았습니다. 지금은 WOW Automation 대표로 모든 프로젝트를 직접 총괄하며, 한양대학교 블록체인금융융합 대학원에서 공부하고 있습니다.</p>
+        <h2 data-i18n="ceo_t">현장에서 봇을 만들어 온 사람이<br>직접 맡습니다</h2>
+        <p data-i18n="ceo_p">일본 리츠메이칸대학교를 졸업하고 글로벌 컨설팅사 <strong>ABeam Consulting</strong>에서 RPA 기술 리더로 설계·개발·교육·컨설팅을 맡았습니다. 지금은 WOW Automation 대표로 모든 프로젝트를 직접 총괄하며, 한양대학교 블록체인금융융합 대학원에서 공부하고 있습니다.</p>
         <ul class="tl">
-          <li><small>EDUCATION</small>리츠메이칸대학교 (일본 교토)</li>
-          <li><small>TRAINING</small>한국소프트웨어인재개발원</li>
-          <li><small>CAREER</small>ABeam Consulting — RPA 기술 리더</li>
-          <li><small>NOW</small>WOW Automation 대표 · 한양대학교 대학원 블록체인금융융합</li>
+          <li><small>EDUCATION</small><span data-i18n="t1">리츠메이칸대학교 (일본 교토)</span></li>
+          <li><small>TRAINING</small><span data-i18n="t2">한국소프트웨어인재개발원</span></li>
+          <li><small>CAREER</small><span data-i18n="t3">ABeam Consulting — RPA 기술 리더</span></li>
+          <li><small>NOW</small><span data-i18n="t4">WOW Automation 대표 · 한양대학교 대학원 블록체인금융융합</span></li>
         </ul>
-        <div class="langs"><span>한국어 Native</span><span>日本語 JLPT N1</span><span>English</span></div>
+        <div class="langs"><span data-i18n="lg1">한국어 Native</span><span data-i18n="lg2">日本語 JLPT N1</span><span data-i18n="lg3">English</span></div>
       </div>
     </div>
   </div>
@@ -430,12 +446,12 @@ footer .mono b{color:var(--signal);font-weight:600}
 
 <section id="faq">
   <div class="wrap">
-    <div class="sec-head"><div><p class="label">FAQ</p><h2>자주 묻는 질문</h2></div></div>
+    <div class="sec-head"><div><p class="label">FAQ</p><h2 data-i18n="fq_t">자주 묻는 질문</h2></div></div>
     <div class="faq">
-      <details><summary>어떤 업무가 자동화에 맞나요?</summary><p>규칙이 정해져 있고 매일·매주 반복되는 PC 업무입니다. ERP·그룹웨어 데이터 입력, 엑셀 취합과 정산, 정해진 양식의 보고서 작성, 여러 시스템 사이의 복사·붙여넣기가 대표적입니다.</p></details>
-      <details><summary>RPA 라이선스 비용은 따로 드나요?</summary><p>사용하는 툴에 따라 다릅니다. Power Automate처럼 이미 쓰고 계신 라이선스로 되는 경우도 많아서, 상담 때 현재 환경을 보고 가장 저렴한 조합을 추천해 드립니다.</p></details>
-      <details><summary>원격으로도 진행되나요?</summary><p>네. 서울·경기·인천은 방문이 가능하고, 그 외 지역과 해외 법인은 원격으로 진행합니다. 일본어 대응도 됩니다.</p></details>
-      <details><summary>납품 후 봇이 멈추면요?</summary><p>화면이 바뀌거나 예외 상황으로 봇이 멈추는 일은 생깁니다. 운영 가이드와 오류 알림을 함께 넘겨드리고, 유지보수 문의에도 빠르게 대응합니다.</p></details>
+      <details><summary data-i18n="q1">어떤 업무가 자동화에 맞나요?</summary><p data-i18n="a1">규칙이 정해져 있고 매일·매주 반복되는 PC 업무입니다. ERP·그룹웨어 데이터 입력, 엑셀 취합과 정산, 정해진 양식의 보고서 작성, 여러 시스템 사이의 복사·붙여넣기가 대표적입니다.</p></details>
+      <details><summary data-i18n="q2">RPA 라이선스 비용은 따로 드나요?</summary><p data-i18n="a2">사용하는 툴에 따라 다릅니다. Power Automate처럼 이미 쓰고 계신 라이선스로 되는 경우도 많아서, 상담 때 현재 환경을 보고 가장 저렴한 조합을 추천해 드립니다.</p></details>
+      <details><summary data-i18n="q3">원격으로도 진행되나요?</summary><p data-i18n="a3">네. 서울·경기·인천은 방문이 가능하고, 그 외 지역과 해외 법인은 원격으로 진행합니다. 일본어 대응도 됩니다.</p></details>
+      <details><summary data-i18n="q4">납품 후 봇이 멈추면요?</summary><p data-i18n="a4">화면이 바뀌거나 예외 상황으로 봇이 멈추는 일은 생깁니다. 운영 가이드와 오류 알림을 함께 넘겨드리고, 유지보수 문의에도 빠르게 대응합니다.</p></details>
     </div>
   </div>
 </section>
@@ -445,24 +461,30 @@ footer .mono b{color:var(--signal);font-weight:600}
     <div class="contact">
       <div class="contact-info">
         <p class="label">Contact</p>
-        <h2>30분이면 답이 나옵니다</h2>
-        <p>자동화하고 싶은 업무를 적어 주시면 자동화 가능 여부, 예상 기간, 비용 견적을 안내해 드립니다.</p>
-        <div class="mailbox"><div><small>EMAIL</small><span id="mail">kimseunghwa102@gmail.com</span></div><button class="copy" type="button" id="copyMail">주소 복사</button></div>
+        <h2 data-i18n="ct_t">30분이면 답이 나옵니다</h2>
+        <p data-i18n="ct_d">자동화하고 싶은 업무를 적어 주시면 자동화 가능 여부, 예상 기간, 비용 견적을 안내해 드립니다.</p>
+        <div class="mailbox"><div><small>EMAIL</small><span id="mail">kimseunghwa102@gmail.com</span></div><button class="copy" type="button" id="copyMail" data-i18n="cp">주소 복사</button></div>
         <div class="facts">
-          <div><b>지역</b>서울 · 경기 · 인천 방문 / 전국 · 해외 원격</div>
-          <div><b>언어</b>한국어 · 日本語 · English</div>
-          <div><b>회신</b>영업일 기준 24시간 안에 답장</div>
+          <div><b data-i18n="fa1">지역</b><span data-i18n="fa1v">서울 · 경기 · 인천 방문 / 전국 · 해외 원격</span></div>
+          <div><b data-i18n="fa2">언어</b>한국어 · 日本語 · English</div>
+          <div><b data-i18n="fa3">회신</b><span data-i18n="fa3v">영업일 기준 24시간 안에 답장</span></div>
         </div>
       </div>
       <form id="form" novalidate>
         <div class="two">
-          <div><label for="f-name">회사명 / 이름</label><input id="f-name" name="name" type="text" required placeholder="예: ○○병원 원무팀 홍길동"></div>
-          <div><label for="f-email">회신받을 이메일</label><input id="f-email" name="email" type="email" required placeholder="name@company.com"></div>
+          <div><label for="f-name" data-i18n="lb1">회사명 / 이름</label><input id="f-name" name="name" type="text" required placeholder="예: ○○병원 원무팀 홍길동" data-i18n-ph="ph1"></div>
+          <div><label for="f-email" data-i18n="lb2">회신받을 이메일</label><input id="f-email" name="email" type="email" required placeholder="name@company.com"></div>
         </div>
-        <div><label for="f-plan">관심 패키지</label>
-          <select id="f-plan" name="plan"><option>아직 모르겠어요</option><option>베이직</option><option>스탠다드</option><option>프리미엄</option><option>교육만</option></select></div>
-        <div><label for="f-msg">자동화하고 싶은 업무</label><textarea id="f-msg" name="message" required placeholder="예: 매일 아침 ERP에서 전일 매출을 뽑아 엑셀로 정리하고 팀장님께 메일 보내는 업무 (약 1시간)"></textarea></div>
-        <button class="btn btn-fill" type="submit" style="justify-content:center">문의 보내기 →</button>
+        <div><label for="f-plan" data-i18n="lb3">관심 패키지</label>
+          <select id="f-plan" name="plan">
+            <option value="unsure" data-i18n="o0">아직 모르겠어요</option>
+            <option value="basic" data-i18n="o1">베이직</option>
+            <option value="standard" data-i18n="o2">스탠다드</option>
+            <option value="premium" data-i18n="o3">프리미엄</option>
+            <option value="training" data-i18n="o4">교육만</option>
+          </select></div>
+        <div><label for="f-msg" data-i18n="lb4">자동화하고 싶은 업무</label><textarea id="f-msg" name="message" required placeholder="예: 매일 아침 ERP에서 전일 매출을 뽑아 엑셀로 정리하고 팀장님께 메일 보내는 업무 (약 1시간)" data-i18n-ph="ph4"></textarea></div>
+        <button class="btn btn-fill" type="submit" id="submitBtn" style="justify-content:center" data-i18n="sb">문의 보내기 →</button>
         <div id="status" aria-live="polite"></div>
       </form>
     </div>
@@ -478,88 +500,327 @@ footer .mono b{color:var(--signal);font-weight:600}
 
 <script>
 (function(){
-  var refs=[
-    ["2022.03 – 2022.06","충남대학교병원 RPA 구축","Evolvesoft","구축"],
-    ["2022.06 – 2023.03","계명대학교동산의료원 RPA 구축","Evolvesoft","구축"],
-    ["2023.03","로얄앤컴퍼니 RPA 도입 컨설팅","ABeam Consulting","컨설팅"],
-    ["2023.03 – 2023.05","DIC RPA 구축 및 교육","ABeam Consulting","구축"],
-    ["2023.05 – 2024.06","Mitutoyo Korea RPA 구축","ABeam Consulting","구축"],
-    ["2024.07 – 2024.09","한국자동차환경협회 RPA 구축","ToBeWAY","구축"],
-    ["2024.09 – 2025.03","세무법인신세계 RPA 프레임워크 구축 및 컨설팅","세무법인신세계","프레임워크"],
-    ["2024.09 – 2025.01","경동나비엔 RPA 프로젝트 참가","알텐코리아","구축"],
-    ["2025.03 – 2025.05","EDIYA Coffee RPA 도입 PoC","알텐코리아","PoC"],
-    ["2025.04","환인제약 RPA 도입 컨설팅 및 교육","알텐코리아","컨설팅"],
-    ["2025.06 – 2025.09","Mitutoyo Korea RPA 2차 구축","Mitutoyo Korea","구축"],
-    ["2025.09 – 2025.10","KSA 한국표준협회 RPA 구축","KSA 한국표준협회","구축"],
-    ["2026.01 – 2026.03","(주)셀트리온제약 RPA 구축","㈜웅진","구축"]
-  ].reverse();
-  var cls={"구축":"","컨설팅":"c","프레임워크":"f","PoC":"p"};
-  var ledger=document.getElementById("ledger");
-  refs.forEach(function(r){
-    var d=document.createElement("div");d.className="row";d.dataset.k=r[3];
-    d.innerHTML='<span class="per">'+r[0]+'</span><span class="nm">'+r[1]+'</span><span class="cl">'+r[2]+'</span><span class="chip '+cls[r[3]]+'">'+r[3]+'</span>';
+var T={
+en:{
+n_svc:"Services",n_ref:"References",n_roi:"Savings calculator",n_price:"Pricing",n_ceo:"About the CEO",n_cta:"Free consultation",
+h_eye:"RPA development · Consulting · Training",
+h_title:"Let <em>a bot</em> finish<br>the work your team repeats every day",
+h_lede:"Proven RPA automation for hospitals, pharma, manufacturing, tax firms and associations. One team owns everything from process analysis to bot development and handover. <strong>From ₩3M per automated task.</strong>",
+h_b1:"Book a free 30-min consultation →",h_b2:"Calculate your savings",
+s1:"Projects delivered",s2:"Years in the field",s3:"Industries served",
+l1:"Log in to groupware",l2:"Fetch yesterday's sales from ERP (412 rows)",l3:"Fill in the Excel settlement sheet",l4:"Notify owner of 3 exceptions",l5:"Email the PDF report",l6:"Job complete",
+f1:"By hand",f1v:"2 h 10 min",f2:"By bot",f2v:"1 min 20 s",
+sv_t:"From first assessment to daily operations",sv_d:"Whether you are just looking at RPA or already running bots, hand us only the stages you need.",
+c1t:"RPA bot development",c1d:"We automate repetitive work such as data entry, document handling and transfers between systems on major platforms like UiPath and Power Automate.",
+c2t:"Adoption consulting",c2d:"We interview your teams, pick the automation candidates, calculate ROI and map out where to start.",
+c3t:"Framework design",c3d:"Reusable components and development standards keep maintenance manageable as your number of bots grows.",
+c4t:"PoC · Pilot",c4d:"Before the full contract, we automate one or two tasks so you can see the savings in real numbers.",
+c5t:"In-house training",c5d:"Hands-on training for business users and in-house developers. We have trained more than 100 people at Celltrion Pharm.",
+c6t:"Operations · Maintenance",c6d:"When a screen change or an exception stops a bot, we find the cause and fix it quickly.",
+wh_t:"A third of what a large SI charges, with the same result",
+w1t:"Lowest price in the industry",w1d:"₩3M per automated task. Simple quotes and no hidden costs.",
+w2t:"6 industries",w2d:"Hospitals, pharma, manufacturing, tax firms, associations and F&amp;B. We have done this work before.",
+w3t:"Full package",w3d:"Analysis → development → testing → delivery → support, all in one.",
+w4t:"Fast delivery",w4d:"Small automations usually go live within 2–4 weeks.",
+w5t:"Weekly updates",w5d:"We report progress every week and respond quickly after delivery.",
+rf_t:"13 projects",th1:"Period",th2:"Project",th3:"Client",th4:"Type",
+roi_t:"How much could you save?",roi_d:"Enter one repetitive task. You will see how many months it takes to earn back ₩3M.",
+r1:"Time spent per day",r2:"People doing this task",r3:"Hourly labor cost per person",r4:"Share automated",
+ry:"Annual labor savings",rh:"Hours saved per month",rp:"Payback on ₩3M",
+rn:"Estimate based on 21 working days per month. We calculate the real effect in a free consultation after looking at the task.",
+pr_t:"How we work",
+p1t:"Process analysis",p1d:"We study the workflow, pick what to automate and estimate the impact up front.",p1s:"1 week",
+p2t:"Design · Build",p2d:"We design the process, build the bot and run unit tests.",p2s:"1–2 weeks",
+p3t:"Test · Acceptance",p3d:"Scenario tests with real data, exception handling and user acceptance testing.",p3s:"3–5 days",
+p4t:"Go-live · Handover",p4d:"After go-live we hand over an operations guide and train your staff.",p4s:"2–3 days",
+pc_t:"Simple pricing",pc_d:"VAT not included. The exact scope is confirmed after a free 30-minute consultation.",
+pp1:"₩3<small>M</small>",pp2:"₩8<small>M</small>",pp3:"Custom",tier2:"STANDARD · RECOMMENDED",
+ps1:"Automate one repetitive task",ps2:"Automation across several tasks and systems",ps3:"Company-wide rollout · Framework",
+b1:"Process analysis · Design",b2:"Bot development · Testing",b3:"Operations guide · Handover",
+s_1:"Everything in Basic",s_2:"Data integration across systems",s_3:"Exception alerts · Logging",s_4:"Staff training",
+m1:"Adoption roadmap · ROI analysis",m2:"Development standards · Framework",m3:"Training for in-house developers",m4:"Operations · Maintenance contract",
+pb1:"Ask about Basic",pb2:"Ask about Standard",pb3:"Ask about Premium",
+ceo_alt:"Seunghwa Kim, CEO of WOW Automation",ceo_nm:"Seunghwa Kim",
+ceo_t:"The person who has built bots on site<br>runs your project",
+ceo_p:"I graduated from Ritsumeikan University in Japan and worked as an RPA technical lead at the global consulting firm <strong>ABeam Consulting</strong>, covering design, development, training and consulting. Today I lead every WOW Automation project personally while studying in Hanyang University's graduate program in blockchain finance.",
+t1:"Ritsumeikan University (Kyoto, Japan)",t2:"Korea Software Talent Development Institute",t3:"ABeam Consulting — RPA technical lead",t4:"CEO, WOW Automation · Graduate student in blockchain finance, Hanyang University",
+lg1:"Korean (native)",lg2:"Japanese (JLPT N1)",lg3:"English",
+fq_t:"Frequently asked questions",
+q1:"Which tasks are a good fit for automation?",a1:"Rule-based PC work that repeats daily or weekly: entering data into ERP or groupware, consolidating and reconciling in Excel, building reports in a fixed format, and copying data between systems.",
+q2:"Do RPA licenses cost extra?",a2:"It depends on the tool. The licenses you already have, such as Power Automate, are often enough, so we look at your setup and recommend the cheapest combination.",
+q3:"Can you work remotely?",a3:"Yes. We visit on site in Seoul, Gyeonggi and Incheon, and work remotely with other regions and overseas entities. We can also work in Japanese.",
+q4:"What if a bot stops after delivery?",a4:"Bots do stop when screens change or exceptions occur. We hand over an operations guide and error alerts with every bot, and respond quickly to maintenance requests.",
+ct_t:"30 minutes is all it takes",ct_d:"Tell us which task you want to automate. We will tell you whether it can be automated, how long it takes and what it costs.",
+cp:"Copy address",fa1:"Area",fa1v:"On site in Seoul · Gyeonggi · Incheon / remote nationwide and overseas",fa2:"Languages",fa3:"Reply",fa3v:"Within 24 hours on business days",
+lb1:"Company / Name",lb2:"Email for our reply",lb3:"Package of interest",lb4:"Task you want to automate",
+ph1:"e.g. Jane Park, Admin team, ABC Hospital",ph4:"e.g. Every morning I pull yesterday's sales from the ERP, organize them in Excel and email them to my manager (about 1 hour)",
+o0:"Not sure yet",o1:"Basic",o2:"Standard",o3:"Premium",o4:"Training only",sb:"Send inquiry →"
+},
+ja:{
+n_svc:"サービス",n_ref:"実績",n_roi:"削減シミュレーター",n_price:"料金",n_ceo:"代表紹介",n_cta:"無料相談",
+h_eye:"RPA構築・コンサルティング・研修",
+h_title:"人が繰り返していた業務を、<br><em>ボットが代わりに</em>終わらせます",
+h_lede:"病院・製薬・製造・税理士法人・協会で実績のあるRPA自動化。業務分析からボット開発、運用移管まで一つのチームが最後まで責任を持ちます。<strong>自動化1業務あたり300万ウォンから。</strong>",
+h_b1:"30分無料相談を申し込む →",h_b2:"自社の削減額を計算",
+s1:"完了プロジェクト",s2:"年の現場経験",s3:"業種で構築",
+l1:"グループウェアにログイン",l2:"ERPから前日売上を取得（412件）",l3:"Excel精算表を作成",l4:"例外3件を担当者に通知",l5:"レポートPDFをメール送信",l6:"作業完了",
+f1:"人が行う場合",f1v:"2時間10分",f2:"ボットの場合",f2v:"1分20秒",
+sv_t:"導入検討から運用まで",sv_d:"初めてRPAを検討する会社も、すでにボットが稼働している会社も、必要な段階だけお任せください。",
+c1t:"RPAボット構築",c1d:"UiPath・Power Automateなど主要プラットフォームで、データ入力、書類処理、システム間連携などの繰り返し業務を自動化します。",
+c2t:"導入コンサルティング",c2d:"現場ヒアリングで自動化候補を選び、ROIを算出して、どの業務から始めるかロードマップを描きます。",
+c3t:"フレームワーク設計",c3d:"再利用コンポーネントと開発標準を整え、ボットが増えても保守が崩れない構造をつくります。",
+c4t:"PoC・パイロット",c4d:"本契約の前に1〜2業務を先に自動化し、実際の削減効果を数字で確認します。",
+c5t:"社内研修",c5d:"現場担当者と社内開発者向けの実習中心の研修。セルトリオン製薬で100名以上を教育しました。",
+c6t:"運用・保守",c6d:"画面変更や例外でボットが止まったら、すぐに原因を特定して修正します。",
+wh_t:"大手SIの1/3のコストで、同じ成果を",
+w1t:"業界最安値",w1d:"自動化1業務300万ウォン。見積もりはシンプルで、隠れたコストはありません。",
+w2t:"6業種の経験",w2d:"病院、製薬、製造、税理士法人、協会、F&amp;Bの業務をすでに手がけています。",
+w3t:"フルパッケージ",w3d:"分析 → 開発 → テスト → 納品 → 運用支援まで一括で。",
+w4t:"短納期",w4d:"小規模な自動化は通常2〜4週間で稼働します。",
+w5t:"週次報告",w5d:"進捗を毎週報告し、納品後の問題にもすぐ対応します。",
+rf_t:"実績13件",th1:"期間",th2:"案件名",th3:"発注元",th4:"区分",
+roi_t:"自社はいくら削減できる？",roi_d:"繰り返し業務を1つ基準に入力してください。300万ウォンの投資が何か月で回収できるかすぐ分かります。",
+r1:"1日の反復業務時間",r2:"この業務の担当人数",r3:"1人あたりの時給人件費",r4:"自動化率",
+ry:"年間削減人件費",rh:"月間削減時間",rp:"300万ウォン回収まで",
+rn:"月21営業日での試算です。実際の効果は無料相談で業務を確認して算出します。",
+pr_t:"進め方",
+p1t:"業務分析",p1d:"業務フローを把握し、自動化対象を選び、効果を事前に試算します。",p1s:"1週間",
+p2t:"設計・開発",p2d:"プロセスを設計し、ボットを開発して単体テストを行います。",p2s:"1〜2週間",
+p3t:"テスト・検収",p3d:"実データでのシナリオテスト、例外処理、現場UATを行います。",p3s:"3〜5日",
+p4t:"運用・移管",p4d:"リリース後に運用ガイドをお渡しし、担当者研修まで行います。",p4s:"2〜3日",
+pc_t:"シンプルな料金",pc_d:"税別。正確な範囲は30分の無料相談後に確定します。",
+pp1:"300<small>万ウォン</small>",pp2:"800<small>万ウォン</small>",pp3:"応相談",tier2:"STANDARD・おすすめ",
+ps1:"反復業務1件の自動化",ps2:"複数の業務・システムをつなぐ自動化",ps3:"全社導入・フレームワーク構築",
+b1:"業務分析・設計",b2:"ボット開発・テスト",b3:"運用ガイド・引き継ぎ",
+s_1:"ベーシックの全項目を含む",s_2:"複数システム間のデータ連携",s_3:"例外通知・ログ設計",s_4:"担当者研修",
+m1:"導入ロードマップ・ROI分析",m2:"開発標準・フレームワーク",m3:"社内開発者の育成研修",m4:"運用・保守契約",
+pb1:"ベーシックを相談",pb2:"スタンダードを相談",pb3:"プレミアムを相談",
+ceo_alt:"WOW Automation 代表 キム・スンファ",ceo_nm:"キム・スンファ",
+ceo_t:"現場でボットを作ってきた本人が<br>直接担当します",
+ceo_p:"日本の立命館大学を卒業後、グローバルコンサルティング会社<strong>ABeam Consulting</strong>でRPA技術リーダーとして設計・開発・研修・コンサルティングを担当しました。現在はWOW Automationの代表としてすべてのプロジェクトを自ら統括しながら、漢陽大学大学院でブロックチェーン金融を学んでいます。",
+t1:"立命館大学（京都）",t2:"韓国ソフトウェア人材開発院",t3:"ABeam Consulting — RPA技術リーダー",t4:"WOW Automation 代表・漢陽大学大学院 ブロックチェーン金融融合",
+lg1:"韓国語（ネイティブ）",lg2:"日本語（JLPT N1）",lg3:"英語",
+fq_t:"よくある質問",
+q1:"どんな業務が自動化に向いていますか？",a1:"ルールが決まっていて毎日・毎週繰り返すPC業務です。ERP・グループウェアへのデータ入力、Excelでの集計・精算、定型レポートの作成、システム間のコピー＆ペーストが代表例です。",
+q2:"RPAのライセンス費用は別途かかりますか？",a2:"使うツールによります。Power Automateのように既にお持ちのライセンスで対応できる場合も多いため、相談時に現在の環境を見て最も安い組み合わせをご提案します。",
+q3:"リモートでも対応できますか？",a3:"はい。ソウル・京畿・仁川は訪問可能で、その他の地域や海外法人はリモートで対応します。日本語での対応も可能です。",
+q4:"納品後にボットが止まったら？",a4:"画面変更や例外でボットが止まることはあります。運用ガイドとエラー通知を一緒にお渡しし、保守のご依頼にも迅速に対応します。",
+ct_t:"30分で答えが出ます",ct_d:"自動化したい業務を書いていただければ、自動化の可否、想定期間、費用の見積もりをご案内します。",
+cp:"アドレスをコピー",fa1:"対応地域",fa1v:"ソウル・京畿・仁川は訪問／全国・海外はリモート",fa2:"対応言語",fa3:"返信",fa3v:"営業日24時間以内に返信",
+lb1:"会社名／お名前",lb2:"返信先メールアドレス",lb3:"ご希望のプラン",lb4:"自動化したい業務",
+ph1:"例：〇〇病院 医事課 山田太郎",ph4:"例：毎朝ERPから前日売上を抽出してExcelにまとめ、上司にメールする業務（約1時間）",
+o0:"まだ分からない",o1:"ベーシック",o2:"スタンダード",o3:"プレミアム",o4:"研修のみ",sb:"問い合わせを送信 →"
+},
+vi:{
+n_svc:"Dịch vụ",n_ref:"Dự án",n_roi:"Tính tiết kiệm",n_price:"Chi phí",n_ceo:"Giới thiệu CEO",n_cta:"Tư vấn miễn phí",
+h_eye:"Triển khai RPA · Tư vấn · Đào tạo",
+h_title:"Công việc lặp lại mỗi ngày,<br>hãy để <em>bot làm thay</em>",
+h_lede:"Tự động hóa RPA đã được kiểm chứng tại bệnh viện, dược phẩm, sản xuất, công ty thuế và hiệp hội. Một đội ngũ chịu trách nhiệm từ phân tích quy trình, phát triển bot đến bàn giao vận hành. <strong>Từ 3 triệu KRW cho mỗi tác vụ tự động hóa.</strong>",
+h_b1:"Đăng ký tư vấn miễn phí 30 phút →",h_b2:"Tính khoản tiết kiệm",
+s1:"Dự án hoàn thành",s2:"Năm kinh nghiệm",s3:"Ngành đã triển khai",
+l1:"Đăng nhập groupware",l2:"Lấy doanh thu hôm qua từ ERP (412 dòng)",l3:"Điền bảng quyết toán Excel",l4:"Báo 3 ngoại lệ cho người phụ trách",l5:"Gửi email báo cáo PDF",l6:"Hoàn tất",
+f1:"Làm thủ công",f1v:"2 giờ 10 phút",f2:"Bot thực hiện",f2v:"1 phút 20 giây",
+sv_t:"Từ khảo sát đến vận hành",sv_d:"Dù bạn mới tìm hiểu RPA hay đã có bot đang chạy, chỉ cần giao cho chúng tôi những giai đoạn bạn cần.",
+c1t:"Phát triển bot RPA",c1d:"Tự động hóa các công việc lặp lại như nhập liệu, xử lý chứng từ và chuyển dữ liệu giữa các hệ thống trên UiPath, Power Automate và các nền tảng chính.",
+c2t:"Tư vấn triển khai",c2d:"Phỏng vấn các bộ phận, chọn quy trình nên tự động hóa, tính ROI và vạch lộ trình bắt đầu.",
+c3t:"Thiết kế framework",c3d:"Thành phần tái sử dụng và tiêu chuẩn phát triển giúp việc bảo trì luôn ổn định khi số bot tăng lên.",
+c4t:"PoC · Thí điểm",c4d:"Trước khi ký hợp đồng chính thức, chúng tôi tự động hóa 1–2 tác vụ để bạn thấy hiệu quả bằng con số thực.",
+c5t:"Đào tạo nội bộ",c5d:"Đào tạo thực hành cho nhân viên nghiệp vụ và lập trình viên nội bộ. Đã đào tạo hơn 100 người tại Celltrion Pharm.",
+c6t:"Vận hành · Bảo trì",c6d:"Khi bot dừng do giao diện thay đổi hoặc phát sinh ngoại lệ, chúng tôi nhanh chóng tìm nguyên nhân và sửa lỗi.",
+wh_t:"Chi phí chỉ bằng 1/3 công ty SI lớn, kết quả như nhau",
+w1t:"Giá thấp nhất ngành",w1d:"3 triệu KRW cho mỗi tác vụ. Báo giá rõ ràng, không chi phí ẩn.",
+w2t:"Kinh nghiệm 6 ngành",w2d:"Bệnh viện, dược phẩm, sản xuất, công ty thuế, hiệp hội và F&amp;B. Chúng tôi đều đã làm.",
+w3t:"Trọn gói",w3d:"Phân tích → phát triển → kiểm thử → bàn giao → hỗ trợ vận hành, tất cả trong một.",
+w4t:"Bàn giao nhanh",w4d:"Các tự động hóa nhỏ thường đi vào vận hành trong 2–4 tuần.",
+w5t:"Báo cáo hằng tuần",w5d:"Cập nhật tiến độ mỗi tuần và hỗ trợ nhanh sau bàn giao.",
+rf_t:"13 dự án",th1:"Thời gian",th2:"Dự án",th3:"Khách hàng",th4:"Loại",
+roi_t:"Doanh nghiệp bạn tiết kiệm được bao nhiêu?",roi_d:"Nhập một tác vụ lặp lại. Bạn sẽ thấy cần bao nhiêu tháng để thu hồi khoản đầu tư 3 triệu KRW.",
+r1:"Thời gian mỗi ngày",r2:"Số người làm việc này",r3:"Chi phí lao động mỗi giờ/người",r4:"Tỷ lệ tự động hóa",
+ry:"Tiết kiệm chi phí nhân công mỗi năm",rh:"Giờ tiết kiệm mỗi tháng",rp:"Thu hồi 3 triệu KRW",
+rn:"Ước tính dựa trên 21 ngày làm việc mỗi tháng. Hiệu quả thực tế sẽ được tính trong buổi tư vấn miễn phí.",
+pr_t:"Quy trình làm việc",
+p1t:"Phân tích nghiệp vụ",p1d:"Nắm quy trình, chọn việc cần tự động hóa và ước tính hiệu quả trước.",p1s:"1 tuần",
+p2t:"Thiết kế · Phát triển",p2d:"Thiết kế quy trình, xây dựng bot và chạy kiểm thử đơn vị.",p2s:"1–2 tuần",
+p3t:"Kiểm thử · Nghiệm thu",p3d:"Kiểm thử kịch bản với dữ liệu thật, xử lý ngoại lệ và UAT với người dùng.",p3s:"3–5 ngày",
+p4t:"Vận hành · Bàn giao",p4d:"Sau khi triển khai, chúng tôi bàn giao hướng dẫn vận hành và đào tạo nhân viên.",p4s:"2–3 ngày",
+pc_t:"Báo giá đơn giản",pc_d:"Chưa gồm VAT. Phạm vi chính xác được chốt sau buổi tư vấn miễn phí 30 phút.",
+pp1:"3<small> triệu ₩</small>",pp2:"8<small> triệu ₩</small>",pp3:"Thỏa thuận",tier2:"STANDARD · ĐỀ XUẤT",
+ps1:"Tự động hóa 1 tác vụ lặp lại",ps2:"Tự động hóa liên kết nhiều tác vụ và hệ thống",ps3:"Triển khai toàn công ty · Framework",
+b1:"Phân tích · Thiết kế",b2:"Phát triển bot · Kiểm thử",b3:"Hướng dẫn vận hành · Bàn giao",
+s_1:"Bao gồm toàn bộ gói Basic",s_2:"Liên kết dữ liệu giữa các hệ thống",s_3:"Cảnh báo ngoại lệ · Ghi log",s_4:"Đào tạo nhân viên",
+m1:"Lộ trình triển khai · Phân tích ROI",m2:"Tiêu chuẩn phát triển · Framework",m3:"Đào tạo lập trình viên nội bộ",m4:"Hợp đồng vận hành · Bảo trì",
+pb1:"Tư vấn gói Basic",pb2:"Tư vấn gói Standard",pb3:"Tư vấn gói Premium",
+ceo_alt:"Kim Seunghwa, CEO WOW Automation",ceo_nm:"Kim Seunghwa",
+ceo_t:"Người trực tiếp xây dựng bot<br>sẽ đảm nhận dự án của bạn",
+ceo_p:"Tôi tốt nghiệp Đại học Ritsumeikan (Nhật Bản) và làm trưởng nhóm kỹ thuật RPA tại công ty tư vấn toàn cầu <strong>ABeam Consulting</strong>, phụ trách thiết kế, phát triển, đào tạo và tư vấn. Hiện tôi trực tiếp điều hành mọi dự án của WOW Automation và đang học cao học ngành Tài chính Blockchain tại Đại học Hanyang.",
+t1:"Đại học Ritsumeikan (Kyoto, Nhật Bản)",t2:"Viện Phát triển Nhân lực Phần mềm Hàn Quốc",t3:"ABeam Consulting — Trưởng nhóm kỹ thuật RPA",t4:"CEO WOW Automation · Cao học Tài chính Blockchain, Đại học Hanyang",
+lg1:"Tiếng Hàn (bản ngữ)",lg2:"Tiếng Nhật (JLPT N1)",lg3:"Tiếng Anh",
+fq_t:"Câu hỏi thường gặp",
+q1:"Những công việc nào phù hợp để tự động hóa?",a1:"Công việc trên máy tính có quy tắc rõ ràng và lặp lại hằng ngày, hằng tuần: nhập liệu vào ERP hay groupware, tổng hợp và đối chiếu trên Excel, lập báo cáo theo mẫu cố định, sao chép dữ liệu giữa các hệ thống.",
+q2:"Phí bản quyền RPA có tính riêng không?",a2:"Tùy công cụ. Nhiều trường hợp bản quyền bạn đang có như Power Automate là đủ, nên chúng tôi sẽ xem môi trường hiện tại và đề xuất phương án rẻ nhất.",
+q3:"Có làm việc từ xa được không?",a3:"Có. Chúng tôi đến trực tiếp tại Seoul, Gyeonggi, Incheon và làm việc từ xa với các khu vực khác cũng như pháp nhân ở nước ngoài. Có thể hỗ trợ bằng tiếng Nhật.",
+q4:"Nếu bot dừng sau khi bàn giao thì sao?",a4:"Bot có thể dừng khi giao diện thay đổi hoặc có ngoại lệ. Chúng tôi bàn giao kèm hướng dẫn vận hành, cảnh báo lỗi và phản hồi nhanh các yêu cầu bảo trì.",
+ct_t:"30 phút là có câu trả lời",ct_d:"Hãy cho chúng tôi biết công việc bạn muốn tự động hóa. Chúng tôi sẽ cho biết khả năng tự động hóa, thời gian dự kiến và báo giá.",
+cp:"Sao chép địa chỉ",fa1:"Khu vực",fa1v:"Trực tiếp tại Seoul · Gyeonggi · Incheon / từ xa toàn quốc và nước ngoài",fa2:"Ngôn ngữ",fa3:"Phản hồi",fa3v:"Trong vòng 24 giờ (ngày làm việc)",
+lb1:"Công ty / Họ tên",lb2:"Email nhận phản hồi",lb3:"Gói quan tâm",lb4:"Công việc muốn tự động hóa",
+ph1:"VD: Nguyễn Văn A, Phòng hành chính, Bệnh viện ABC",ph4:"VD: Mỗi sáng lấy doanh thu hôm qua từ ERP, tổng hợp trên Excel rồi gửi email cho trưởng phòng (khoảng 1 giờ)",
+o0:"Chưa chắc",o1:"Basic",o2:"Standard",o3:"Premium",o4:"Chỉ đào tạo",sb:"Gửi yêu cầu →"
+}};
+
+/* References: period, type key, names[ko,en,ja,vi], client index */
+var CL=[["Evolvesoft","Evolvesoft","Evolvesoft","Evolvesoft"],["ABeam Consulting","ABeam Consulting","ABeam Consulting","ABeam Consulting"],["ToBeWAY","ToBeWAY","ToBeWAY","ToBeWAY"],["세무법인신세계","Shinsegae Tax Firm","税理士法人新世界","Shinsegae Tax Firm"],["알텐코리아","Alten Korea","アルテンコリア","Alten Korea"],["Mitutoyo Korea","Mitutoyo Korea","ミツトヨ韓国","Mitutoyo Korea"],["KSA 한국표준협회","Korean Standards Association","韓国標準協会","Hiệp hội Tiêu chuẩn Hàn Quốc"],["㈜웅진","Woongjin","ウンジン","Woongjin"]];
+var REFS=[
+["2022.03 – 2022.06","b",["충남대학교병원 RPA 구축","Chungnam National University Hospital RPA build","忠南大学校病院 RPA構築","Triển khai RPA Bệnh viện ĐH Quốc gia Chungnam"],0],
+["2022.06 – 2023.03","b",["계명대학교동산의료원 RPA 구축","Keimyung University Dongsan Medical Center RPA build","啓明大学校東山医療院 RPA構築","Triển khai RPA Trung tâm Y tế Dongsan, ĐH Keimyung"],0],
+["2023.03","c",["로얄앤컴퍼니 RPA 도입 컨설팅","Royal &amp; Company RPA adoption consulting","ロイヤル&amp;カンパニー RPA導入コンサルティング","Tư vấn triển khai RPA cho Royal &amp; Company"],1],
+["2023.03 – 2023.05","b",["DIC RPA 구축 및 교육","DIC RPA build and training","DIC RPA構築・研修","Triển khai và đào tạo RPA cho DIC"],1],
+["2023.05 – 2024.06","b",["Mitutoyo Korea RPA 구축","Mitutoyo Korea RPA build","ミツトヨ韓国 RPA構築","Triển khai RPA Mitutoyo Korea"],1],
+["2024.07 – 2024.09","b",["한국자동차환경협회 RPA 구축","Korea Automobile Environmental Association RPA build","韓国自動車環境協会 RPA構築","Triển khai RPA Hiệp hội Môi trường Ô tô Hàn Quốc"],2],
+["2024.09 – 2025.03","f",["세무법인신세계 RPA 프레임워크 구축 및 컨설팅","Shinsegae Tax Firm RPA framework and consulting","税理士法人新世界 RPAフレームワーク構築・コンサルティング","Framework RPA và tư vấn cho Công ty thuế Shinsegae"],3],
+["2024.09 – 2025.01","b",["경동나비엔 RPA 프로젝트 참가","Kyungdong Navien RPA project","慶東ナビエン RPAプロジェクト参加","Tham gia dự án RPA Kyungdong Navien"],4],
+["2025.03 – 2025.05","p",["EDIYA Coffee RPA 도입 PoC","EDIYA Coffee RPA PoC","EDIYA Coffee RPA導入PoC","PoC RPA cho EDIYA Coffee"],4],
+["2025.04","c",["환인제약 RPA 도입 컨설팅 및 교육","Whanin Pharm RPA consulting and training","煥仁製薬 RPA導入コンサルティング・研修","Tư vấn và đào tạo RPA cho Whanin Pharm"],4],
+["2025.06 – 2025.09","b",["Mitutoyo Korea RPA 2차 구축","Mitutoyo Korea RPA phase 2","ミツトヨ韓国 RPA第2次構築","Triển khai RPA giai đoạn 2 Mitutoyo Korea"],5],
+["2025.09 – 2025.10","b",["KSA 한국표준협회 RPA 구축","Korean Standards Association (KSA) RPA build","韓国標準協会（KSA）RPA構築","Triển khai RPA Hiệp hội Tiêu chuẩn Hàn Quốc (KSA)"],6],
+["2026.01 – 2026.03","b",["(주)셀트리온제약 RPA 구축","Celltrion Pharm RPA build","セルトリオン製薬 RPA構築","Triển khai RPA Celltrion Pharm"],7]
+].reverse();
+var TYPES={b:["구축","Build","構築","Triển khai"],c:["컨설팅","Consulting","コンサルティング","Tư vấn"],f:["프레임워크","Framework","フレームワーク","Framework"],p:["PoC","PoC","PoC","PoC"]};
+var ALL=["전체","All","すべて","Tất cả"];
+var TICK={
+ko:["충남대학교병원","계명대학교동산의료원","MITUTOYO KOREA","EDIYA COFFEE","KSA 한국표준협회","셀트리온제약","경동나비엔","환인제약","세무법인신세계","DIC"],
+en:["CHUNGNAM NATIONAL UNIV. HOSPITAL","KEIMYUNG UNIV. DONGSAN MEDICAL CENTER","MITUTOYO KOREA","EDIYA COFFEE","KOREAN STANDARDS ASSOCIATION","CELLTRION PHARM","KYUNGDONG NAVIEN","WHANIN PHARM","SHINSEGAE TAX FIRM","DIC"],
+ja:["忠南大学校病院","啓明大学校東山医療院","ミツトヨ韓国","EDIYA COFFEE","韓国標準協会","セルトリオン製薬","慶東ナビエン","煥仁製薬","税理士法人新世界","DIC"]};
+TICK.vi=TICK.en;
+var LI={ko:0,en:1,ja:2,vi:3};
+var META={ko:"WOW Automation — RPA 업무 자동화 구축·컨설팅. 병원·제약·제조·세무·협회 13개 프로젝트, 자동화 업무 1건 300만원부터.",en:"WOW Automation — RPA automation development and consulting. 13 projects across hospitals, pharma, manufacturing, tax firms and associations. From ₩3M per automated task.",ja:"WOW Automation — RPA業務自動化の構築・コンサルティング。病院・製薬・製造・税理士法人・協会で13件の実績。自動化1業務300万ウォンから。",vi:"WOW Automation — Triển khai và tư vấn tự động hóa RPA. 13 dự án tại bệnh viện, dược phẩm, sản xuất, công ty thuế và hiệp hội. Từ 3 triệu KRW mỗi tác vụ."};
+
+function nf(n,l,d){return Number(n).toLocaleString(l==="vi"?"vi-VN":l==="ko"?"ko-KR":l==="ja"?"ja-JP":"en-US",{maximumFractionDigits:d||0,minimumFractionDigits:d||0})}
+var F={
+ko:{min:function(m){return m>=60?Math.floor(m/60)+"시간"+(m%60?" "+m%60+"분":""):m+"분"},ppl:function(n){return n+"명"},krw:function(n){return nf(n,"ko")+"원"},
+ year:function(y){return y>=1e8?nf(y/1e8,"ko",1)+"억원":nf(Math.round(y/1e4),"ko")+"만원"},pay:function(p){return p<1?"1개월 미만":nf(p,"ko",1)+"개월"},
+ ok:function(e){return "문의가 접수됐습니다. 영업일 기준 24시간 안에 "+e+" 로 답장드리겠습니다."},err:"회사명, 이메일, 업무 내용을 모두 적어 주세요.",sending:"보내는 중…",copied:"복사됨",
+ fb:"이 화면에서는 자동 전송이 되지 않았습니다. 아래 내용을 복사해 kimseunghwa102@gmail.com 으로 보내 주세요.",cpb:"내용 복사"},
+en:{min:function(m){return m>=60?Math.floor(m/60)+" h"+(m%60?" "+m%60+" min":""):m+" min"},ppl:function(n){return n+(n===1?" person":" people")},krw:function(n){return "₩"+nf(n,"en")},
+ year:function(y){return y>=1e9?"₩"+nf(y/1e9,"en",2)+"B":"₩"+nf(y/1e6,"en",1)+"M"},pay:function(p){return p<1?"under 1 month":nf(p,"en",1)+" months"},
+ ok:function(e){return "Thanks, we received your inquiry. We will reply to "+e+" within 24 hours on business days."},err:"Please fill in your company, email and the task.",sending:"Sending…",copied:"Copied",
+ fb:"The form could not send from this page. Copy the text below and email it to kimseunghwa102@gmail.com.",cpb:"Copy text"},
+ja:{min:function(m){return m>=60?Math.floor(m/60)+"時間"+(m%60?m%60+"分":""):m+"分"},ppl:function(n){return n+"名"},krw:function(n){return nf(n,"ja")+"ウォン"},
+ year:function(y){return y>=1e8?nf(y/1e8,"ja",1)+"億ウォン":nf(Math.round(y/1e4),"ja")+"万ウォン"},pay:function(p){return p<1?"1か月未満":nf(p,"ja",1)+"か月"},
+ ok:function(e){return "お問い合わせを受け付けました。営業日24時間以内に "+e+" へ返信いたします。"},err:"会社名・メールアドレス・業務内容をすべてご記入ください。",sending:"送信中…",copied:"コピーしました",
+ fb:"このページからは自動送信できませんでした。下の内容をコピーして kimseunghwa102@gmail.com へお送りください。",cpb:"内容をコピー"},
+vi:{min:function(m){return m>=60?Math.floor(m/60)+" giờ"+(m%60?" "+m%60+" phút":""):m+" phút"},ppl:function(n){return n+" người"},krw:function(n){return nf(n,"vi")+" ₩"},
+ year:function(y){return y>=1e9?nf(y/1e9,"vi",2)+" tỷ ₩":nf(y/1e6,"vi",1)+" triệu ₩"},pay:function(p){return p<1?"dưới 1 tháng":nf(p,"vi",1)+" tháng"},
+ ok:function(e){return "Đã nhận yêu cầu của bạn. Chúng tôi sẽ trả lời tới "+e+" trong vòng 24 giờ (ngày làm việc)."},err:"Vui lòng điền công ty, email và nội dung công việc.",sending:"Đang gửi…",copied:"Đã sao chép",
+ fb:"Không gửi tự động được từ trang này. Hãy sao chép nội dung bên dưới và gửi tới kimseunghwa102@gmail.com.",cpb:"Sao chép nội dung"}
+};
+
+/* capture Korean originals */
+var K={};
+document.querySelectorAll("[data-i18n]").forEach(function(el){K[el.dataset.i18n]=el.innerHTML});
+document.querySelectorAll("[data-i18n-ph]").forEach(function(el){K[el.dataset.i18nPh]=el.placeholder});
+document.querySelectorAll("[data-i18n-alt]").forEach(function(el){K[el.dataset.i18nAlt]="WOW Automation 대표 김승화"});
+T.ko=K;
+
+var lang="ko", filter="all";
+var ledger=document.getElementById("ledger");
+
+function renderRefs(){
+  var i=LI[lang];
+  ledger.querySelectorAll(".row:not(.head)").forEach(function(r){r.remove()});
+  REFS.forEach(function(r){
+    var d=document.createElement("div");d.className="row";d.dataset.k=r[1];
+    d.hidden=!(filter==="all"||filter===r[1]);
+    d.innerHTML='<span class="per">'+r[0]+'</span><span class="nm">'+r[2][i]+'</span><span class="cl">'+CL[r[3]][i]+'</span><span class="chip '+(r[1]==="b"?"":r[1])+'">'+TYPES[r[1]][i]+'</span>';
     ledger.appendChild(d);
   });
-  var counts={};refs.forEach(function(r){counts[r[3]]=(counts[r[3]]||0)+1});
+  var counts={};REFS.forEach(function(r){counts[r[1]]=(counts[r[1]]||0)+1});
   document.querySelectorAll(".filters button").forEach(function(b){
-    var f=b.dataset.f;if(f!=="all")b.textContent=f+" "+counts[f];
-    b.addEventListener("click",function(){
-      document.querySelectorAll(".filters button").forEach(function(x){x.setAttribute("aria-pressed",x===b?"true":"false")});
-      ledger.querySelectorAll(".row:not(.head)").forEach(function(row){row.hidden=!(f==="all"||row.dataset.k===f)});
-    });
+    var f=b.dataset.f; b.textContent=f==="all"?ALL[i]+" 13":TYPES[f][i]+" "+counts[f];
   });
-
-  // ROI
-  function won(n){return Math.round(n).toLocaleString("ko-KR")+"원"}
-  function calc(min,ppl,wage,rate){
-    var hours=min/60*ppl*21*(rate/100);
-    var monthly=hours*wage;
-    return {hours:hours,year:monthly*12,pay:monthly>0?3000000/monthly:Infinity};
-  }
-  var ids=["min","ppl","wage","rate"];
-  function upd(){
-    var v=ids.map(function(i){return +document.getElementById("r-"+i).value});
-    document.getElementById("o-min").textContent=v[0]>=60?(Math.floor(v[0]/60)+"시간"+(v[0]%60?" "+v[0]%60+"분":"")):v[0]+"분";
-    document.getElementById("o-ppl").textContent=v[1]+"명";
-    document.getElementById("o-wage").textContent=won(v[2]);
-    document.getElementById("o-rate").textContent=v[3]+"%";
-    var r=calc(v[0],v[1],v[2],v[3]);
-    var y=r.year;
-    document.getElementById("o-year").textContent=y>=1e8?(y/1e8).toFixed(1)+"억원":Math.round(y/1e4).toLocaleString("ko-KR")+"만원";
-    document.getElementById("o-hours").textContent=Math.round(r.hours)+"h";
-    document.getElementById("o-pay").textContent=r.pay<1?"1개월 미만":r.pay.toFixed(1)+"개월";
-  }
-  ids.forEach(function(i){document.getElementById("r-"+i).addEventListener("input",upd)});upd();
-
-  // Plan buttons preselect
-  document.querySelectorAll("[data-plan]").forEach(function(a){a.addEventListener("click",function(){document.getElementById("f-plan").value=a.dataset.plan})});
-
-  // Copy
-  function copyText(t,btn){
-    var done=function(){var o=btn.textContent;btn.textContent="복사됨";setTimeout(function(){btn.textContent=o},1500)};
-    try{navigator.clipboard.writeText(t).then(done,function(){sel()})}catch(e){sel()}
-    function sel(){var s=window.getSelection(),r=document.createRange();r.selectNodeContents(document.getElementById("mail"));s.removeAllRanges();s.addRange(r)}
-  }
-  document.getElementById("copyMail").addEventListener("click",function(){copyText("kimseunghwa102@gmail.com",this)});
-
-  // Form → Formspree; falls back to a copy-ready message where outbound requests are blocked
-  var form=document.getElementById("form"),st=document.getElementById("status");
-  form.addEventListener("submit",function(e){
-    e.preventDefault();
-    var name=document.getElementById("f-name").value.trim(),email=document.getElementById("f-email").value.trim(),msg=document.getElementById("f-msg").value.trim();
-    if(!name||!email||!msg||email.indexOf("@")<1){st.innerHTML='<p class="status fb">회사명, 이메일, 업무 내용을 모두 적어 주세요.</p>';return}
-    var data=new FormData(form);data.append("_subject","[WOW Automation 문의] "+name);
-    var btn=form.querySelector("button[type=submit]");btn.disabled=true;btn.textContent="보내는 중…";
-    fetch("https://formspree.io/f/myklkvlb",{method:"POST",body:data,headers:{Accept:"application/json"}})
-      .then(function(r){if(!r.ok)throw 0;form.reset();st.innerHTML='<p class="status ok">문의가 접수됐습니다. 영업일 기준 24시간 안에 '+email.replace(/</g,"")+' 로 답장드리겠습니다.</p>'})
-      .catch(function(){
-        var body="회사/이름: "+name+"\n회신 이메일: "+email+"\n관심 패키지: "+document.getElementById("f-plan").value+"\n\n"+msg;
-        st.innerHTML='<div class="status fb">이 화면에서는 자동 전송이 되지 않았습니다. 아래 내용을 복사해 kimseunghwa102@gmail.com 으로 보내 주세요.<pre id="pv"></pre><button type="button" class="copy" id="cpv">내용 복사</button></div>';
-        document.getElementById("pv").textContent=body;
-        document.getElementById("cpv").addEventListener("click",function(){var b=this;try{navigator.clipboard.writeText(body).then(function(){b.textContent="복사됨"},function(){})}catch(x){}});
-      })
-      .then(function(){btn.disabled=false;btn.textContent="문의 보내기 →"});
+}
+document.querySelectorAll(".filters button").forEach(function(b){
+  b.addEventListener("click",function(){
+    filter=b.dataset.f;
+    document.querySelectorAll(".filters button").forEach(function(x){x.setAttribute("aria-pressed",x===b?"true":"false")});
+    ledger.querySelectorAll(".row:not(.head)").forEach(function(row){row.hidden=!(filter==="all"||row.dataset.k===filter)});
   });
+});
+
+function renderTicker(){
+  var list=TICK[lang], html="";
+  for(var k=0;k<2;k++) list.forEach(function(n){html+="<span>"+n+"</span>"});
+  document.getElementById("ticker").innerHTML=html;
+}
+
+var ids=["min","ppl","wage","rate"];
+function upd(){
+  var f=F[lang], v=ids.map(function(i){return +document.getElementById("r-"+i).value});
+  document.getElementById("o-min").textContent=f.min(v[0]);
+  document.getElementById("o-ppl").textContent=f.ppl(v[1]);
+  document.getElementById("o-wage").textContent=f.krw(v[2]);
+  document.getElementById("o-rate").textContent=v[3]+"%";
+  var hours=v[0]/60*v[1]*21*(v[3]/100), monthly=hours*v[2];
+  document.getElementById("o-year").textContent=f.year(monthly*12);
+  document.getElementById("o-hours").textContent=Math.round(hours)+"h";
+  document.getElementById("o-pay").textContent=monthly>0?f.pay(3000000/monthly):"–";
+}
+ids.forEach(function(i){document.getElementById("r-"+i).addEventListener("input",upd)});
+
+function setLang(l,save){
+  if(!T[l]) l="ko"; lang=l;
+  var D=T[l];
+  document.documentElement.lang=l;
+  document.querySelectorAll("[data-i18n]").forEach(function(el){var k=el.dataset.i18n; el.innerHTML=(D[k]!=null?D[k]:K[k])});
+  document.querySelectorAll("[data-i18n-ph]").forEach(function(el){var k=el.dataset.i18nPh; el.placeholder=D[k]||K[k]});
+  document.querySelectorAll("[data-i18n-alt]").forEach(function(el){var k=el.dataset.i18nAlt; el.alt=D[k]||K[k]});
+  var md=document.querySelector('meta[name="description"]'); if(md) md.content=META[l];
+  document.getElementById("lang").value=l;
+  renderRefs(); renderTicker(); upd();
+  document.getElementById("status").innerHTML="";
+  if(save){
+    try{localStorage.setItem("wow-lang",l)}catch(e){}
+    try{var u=new URL(location.href); if(l==="ko")u.searchParams.delete("lang"); else u.searchParams.set("lang",l); history.replaceState(null,"",u.pathname+u.search+u.hash)}catch(e){}
+  }
+}
+document.getElementById("lang").addEventListener("change",function(){setLang(this.value,true)});
+
+function initialLang(){
+  try{var q=new URLSearchParams(location.search).get("lang"); if(q&&T[q]) return q}catch(e){}
+  try{var s=localStorage.getItem("wow-lang"); if(s&&T[s]) return s}catch(e){}
+  var n=(navigator.language||"ko").slice(0,2).toLowerCase();
+  return T[n]?n:"ko";
+}
+setLang(initialLang(),false);
+
+document.querySelectorAll("[data-plan]").forEach(function(a){a.addEventListener("click",function(){document.getElementById("f-plan").value=a.dataset.plan})});
+
+document.getElementById("copyMail").addEventListener("click",function(){
+  var btn=this, done=function(){btn.textContent=F[lang].copied;setTimeout(function(){btn.innerHTML=T[lang].cp},1500)};
+  function sel(){var s=window.getSelection(),r=document.createRange();r.selectNodeContents(document.getElementById("mail"));s.removeAllRanges();s.addRange(r)}
+  try{navigator.clipboard.writeText("kimseunghwa102@gmail.com").then(done,sel)}catch(e){sel()}
+});
+
+var form=document.getElementById("form"),st=document.getElementById("status"),sb=document.getElementById("submitBtn");
+form.addEventListener("submit",function(e){
+  e.preventDefault();
+  var f=F[lang],D=T[lang];
+  var name=document.getElementById("f-name").value.trim(),email=document.getElementById("f-email").value.trim(),msg=document.getElementById("f-msg").value.trim();
+  var planSel=document.getElementById("f-plan"), planTxt=planSel.options[planSel.selectedIndex].text;
+  if(!name||!email||!msg||email.indexOf("@")<1){st.innerHTML='<p class="status fb"></p>';st.firstChild.textContent=f.err;return}
+  var data=new FormData(form);data.append("language",lang);data.append("_subject","[WOW Automation] "+name);
+  sb.disabled=true;sb.textContent=f.sending;
+  fetch("https://formspree.io/f/myklkvlb",{method:"POST",body:data,headers:{Accept:"application/json"}})
+    .then(function(r){if(!r.ok)throw 0;form.reset();st.innerHTML='<p class="status ok"></p>';st.firstChild.textContent=f.ok(email)})
+    .catch(function(){
+      var body=D.lb1+": "+name+"\n"+D.lb2+": "+email+"\n"+D.lb3+": "+planTxt+"\n\n"+msg;
+      st.innerHTML='<div class="status fb"><span></span><pre id="pv"></pre><button type="button" class="copy" id="cpv"></button></div>';
+      st.querySelector("span").textContent=f.fb;
+      document.getElementById("pv").textContent=body;
+      var cb=document.getElementById("cpv"); cb.textContent=f.cpb;
+      cb.addEventListener("click",function(){try{navigator.clipboard.writeText(body).then(function(){cb.textContent=f.copied},function(){})}catch(x){}});
+    })
+    .then(function(){sb.disabled=false;sb.innerHTML=T[lang].sb});
+});
 })();
 </script>
 </body>
