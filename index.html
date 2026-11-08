@@ -194,11 +194,11 @@ input[type=range]{width:100%;accent-color:var(--signal)}
 .plan .btn{margin-top:auto;justify-content:center}
 
 /* CEO */
-.ceo{display:grid;grid-template-columns:300px 1fr;gap:56px;align-items:start}
-@media (max-width:860px){.ceo{grid-template-columns:1fr;gap:32px}}
+.ceo{display:grid;grid-template-columns:240px 1fr;gap:56px;align-items:start}
+@media (max-width:860px){.ceo{grid-template-columns:1fr;gap:32px}.badge{max-width:240px}}
 .badge{border:1px solid var(--rule);background:var(--ink)}
 .badge .top{background:var(--signal);color:var(--ink);font-family:var(--mono);font-size:11px;letter-spacing:2px;padding:8px 14px;display:flex;justify-content:space-between}
-.badge .face{aspect-ratio:1;max-width:100%;display:grid;place-items:center;font-family:var(--display-ko);font-size:88px;color:var(--signal);background:repeating-linear-gradient(0deg,transparent 0 23px,var(--rule) 23px 24px)}
+.badge .face{display:block;width:100%;max-width:100%;aspect-ratio:180/232;object-fit:cover;background:var(--paper)}
 .badge .who{padding:16px 14px;border-top:1px solid var(--rule)}
 .badge .who b{display:block;font-size:20px}
 .badge .who span{color:var(--dim);font-size:13px;font-family:var(--mono)}
@@ -407,9 +407,9 @@ footer .mono b{color:var(--signal);font-weight:600}
 <section class="band" id="ceo">
   <div class="wrap">
     <div class="ceo">
-      <div class="badge" aria-hidden="true">
-        <div class="top"><span>CEO</span><span>WOW-001</span></div>
-        <div class="face">김승화</div>
+      <div class="badge">
+        <div class="top" aria-hidden="true"><span>CEO</span><span>WOW-001</span></div>
+        <img class="face" src="ceo.jpg" width="180" height="232" alt="WOW Automation 대표 김승화">
         <div class="who"><b>김승화</b><span>Founder &amp; CEO</span></div>
       </div>
       <div class="ceo-body">
